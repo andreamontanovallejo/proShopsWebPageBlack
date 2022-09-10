@@ -1,0 +1,12 @@
+@import '../assets/styles/variables.scss';
+
+div div input,
+div div input:focus {
+  margin: 0 1% !important;
+  padding: 2%;
+  border-bottom: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+  color: $gray-color;
+  min-height: 54.813px !important;
+}

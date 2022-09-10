@@ -1,0 +1,15 @@
+@import '../assets/styles/variables.scss';
+
+.container {
+  display: flex;
+  align-items: center;
+  border-radius: 15px;
+  background-color: $defaultWhite-color;
+  color: $gray-color;
+  cursor: pointer;
+}
+
+.icon {
+  margin: auto;
+  padding: 1%;
+}

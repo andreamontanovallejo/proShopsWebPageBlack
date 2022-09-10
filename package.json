@@ -1,0 +1,67 @@
+{
+  "name": "proshopwebpageblack",
+  "version": "0.1.0",
+  "private": true,
+  "engines": {
+    "node": "14.17.0",
+    "npm": "6.x"
+  },
+  "homepage": "https://www.black.proshops.cl/",
+  "dependencies": {
+    "@emotion/react": "^11.6.0",
+    "@emotion/styled": "^11.6.0",
+    "@material-ui/core": "^4.11.0",
+    "@material-ui/icons": "^4.9.1",
+    "@mui/icons-material": "^5.2.4",
+    "@mui/material": "^5.2.0",
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.5.0",
+    "@testing-library/user-event": "^7.2.1",
+    "antd": "^4.15.0",
+    "axios": "^0.20.0",
+    "cloudinary": "^1.23.0",
+    "cloudinary-react": "^1.6.8",
+    "dotenv": "^10.0.0",
+    "materialize-css": "^1.0.0",
+    "moment": "^2.29.1",
+    "node-sass": "^4.14.1",
+    "react": "^16.13.1",
+    "react-collapsible": "^2.8.1",
+    "react-dom": "^16.13.1",
+    "react-loader-spinner": "^3.1.14",
+    "react-range-picker": "^1.0.1",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "^3.4.3",
+    "react-swipeable-views": "^0.14.0",
+    "styled-components": "^5.2.0"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "dev": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "prettier": "^2.4.1",
+    "prettier-eslint": "^13.0.0"
+  }
+}

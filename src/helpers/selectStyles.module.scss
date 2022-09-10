@@ -1,0 +1,13 @@
+@import "../assets/styles/variables.scss";
+
+.formControl div div:focus {
+  background-color: $white-color !important;
+}
+
+.label {
+  left: 0 !important;
+}
+
+.select {
+  margin: 0 !important;
+}

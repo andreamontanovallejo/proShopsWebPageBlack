@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=David+Libre&display=swap');
+
+$dullGray-color: #555;
+$gray-color: #424242;
+$defaultWhite-color: #fafaff;
+$white-color: white;
+$black-color: black;
+$main-color: #fecc01;
+$main-mediumColor: #79b0e0;
+$main-softColor: #f6f7fd;
+
+$ultraUltraSoftGray-color: #f1f1f1;
+$ultraSoftBlue-color: #e5e8f9;
+$mediumGray-color: #c7c7c7;
+$orange-color: #fa3f47;
+$softViolet-color: #b5bcf0;
+
+$texts-font: 'David Libre', serif;
+
+:export {
+  dullGray: $dullGray-color;
+  gray: $gray-color;
+  defaultWhite: $defaultWhite-color;
+  whiteColor: $white-color;
+  mainColor: $main-color;
+  mediumColor: $main-mediumColor;
+  softColor: $main-softColor;
+  textsFont: $texts-font;
+}
