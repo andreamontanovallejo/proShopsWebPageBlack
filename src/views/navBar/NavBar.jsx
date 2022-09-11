@@ -42,7 +42,6 @@ export default class NavBar extends React.Component {
     this.services
       .getNavbarInformation(process.env.REACT_APP_COMPANYID)
       .then(response => {
-        console.log('response.data', response.data)
         this.setState({
           logo: response.data.logo,
           sections: response.data.sections,

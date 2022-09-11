@@ -19,7 +19,7 @@ export default function Categories(props) {
           props.categories
             .filter(e => e.cloudinaryUrl)
             .map(e => (
-              <EachCategory className="card">
+              <EachCategory key={e._id} className="card">
                 <Link to={`/products/${e.location}/${e.sectionId}/${e._id}/0`}>
                   <DivImage>
                     <Image

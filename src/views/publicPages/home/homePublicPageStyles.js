@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { Colors } from '../../../assets/styles/variables'
 
 export const DivContainer = styled.div`
@@ -72,8 +72,13 @@ export const DivHorario = styled.div`
     padding: 3%;
   }
   @media (min-width: 600px) {
-    display: flex;
-    padding: 5%;
+    align-items: center;
+    padding: 1% 5%;
+
+    ${props =>
+      css`
+        display: ${props.multipleStores === true ? 'block' : 'flex'} !important;
+      `};
   }
 `
 
@@ -82,8 +87,16 @@ export const DivImageHorario = styled.div`
     width: 100%;
   }
   @media (min-width: 600px) {
-    width: 50%;
     height: auto;
+
+    ${props =>
+      css`
+        width: ${props.multipleStores === true ? '100%' : '50%'} !important;
+        display: ${props.multipleStores === true && 'flex'} !important;
+        margin-top: ${props.multipleStores === true && '3%'} !important;
+        justify-content: ${props.multipleStores === true &&
+        'space-around'} !important;
+      `};
   }
 `
 
@@ -92,8 +105,13 @@ export const ImageHorario = styled.img`
     width: 100%;
   }
   @media (min-width: 600px) {
-    max-width: 100%;
-    height: auto;
+    ${props =>
+      css`
+        max-width: ${props.multipleStores === true ? '80%' : '100%'} !important;
+        max-height: ${props.multipleStores === true
+          ? '400px'
+          : 'auto'} !important;
+      `};
   }
 `
 
@@ -102,20 +120,32 @@ export const DivText = styled.div`
     width: 100%;
     margin: 5% 0 8% 0;
   }
+
   @media (min-width: 600px) {
-    width: 50%;
     height: auto;
     justify-items: center;
-    display: flex;
     align-items: center;
     justify-content: center;
+    flex-wrap: wrap;
+
+    ${props =>
+      css`
+        width: ${props.multipleStores === true ? '100%' : '50%'} !important;
+        display: ${props.multipleStores === true ? 'flex' : 'block'} !important;
+      `};
   }
 `
 
 export const DivBlock = styled.div`
   @media (max-width: 599px) {
+    margin-top: 10%;
   }
   @media (min-width: 600px) {
+    ${props =>
+      css`
+        width: ${props.multipleStores === true && '50%'} !important;
+        margin-top: ${props.multipleStores === true && '5%'} !important;
+      `};
   }
 `
 
@@ -135,6 +165,6 @@ export const SpecialText = styled.div`
   text-align: center;
   font-size: 1.2em;
   font-style: oblique;
-  margin-top: 3%;
+  margin-top: 5%;
   color: ${Colors.blue};
 `

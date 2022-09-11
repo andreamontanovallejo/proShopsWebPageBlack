@@ -29,30 +29,50 @@ export default class HomePublicPage extends React.Component {
     super(props)
     this.services = new PublicPageHomeServices()
     this.state = {
-      isLoading: false,
-      imagesFiles: '',
       aboutUs: '',
+      branchStores: [],
       cateories: [],
-      mainImage: '',
+      coverImage: undefined,
+      fantasyName: undefined,
+      haveInPersonService: false,
+      iconImage: undefined,
+      imageSchedule: undefined,
+      isLoading: false,
+      titleCategories: undefined,
+      welcomeText: undefined,
     }
   }
 
   componentDidMount() {
-    this.getInitialInformation()
+    this.getHomeInformation()
   }
 
-  getInitialInformation = () => {
+  getHomeInformation = () => {
     this.setState({
       isLoading: true,
     })
 
     this.services
-      .getInitialInformation(process.env.REACT_APP_COMPANYID)
+      .getHomeInformation(process.env.REACT_APP_COMPANYID)
       .then(res => {
         this.setState({
-          isLoading: false,
-          aboutUs: res.data.aboutUs,
+          aboutUs: res.data.homeInformation && res.data.homeInformation.aboutUs,
+          branchStores:
+            res.data.homeInformation && res.data.homeInformation.branchStores,
           categories: res.data.categories,
+          coverImage: res.data.images && res.data.images.coverImage,
+          fantasyName: res.data.fantasyName,
+          haveInPersonService:
+            res.data.homeInformation &&
+            res.data.homeInformation.haveInPersonService,
+          iconImage: res.data.images && res.data.images.iconImage,
+          imageSchedule: res.data.images && res.data.images.imageSchedule,
+          isLoading: false,
+          titleCategories:
+            res.data.homeInformation &&
+            res.data.homeInformation.titleCategories,
+          welcomeText:
+            res.data.homeInformation && res.data.homeInformation.welcomeText,
         })
       })
   }
@@ -64,34 +84,98 @@ export default class HomePublicPage extends React.Component {
           IsLoading()
         ) : (
           <>
-            <MainImage src={emptyImage}></MainImage>
+            <MainImage
+              src={
+                (this.state.coverImage &&
+                  this.state.coverImage.cloudinaryUrl) ||
+                emptyImage
+              }
+            ></MainImage>
             <DivIcon>
-              <Icon src={emptyImage}></Icon>
+              <Icon
+                src={
+                  (this.state.iconImage &&
+                    this.state.iconImage.cloudinaryUrl) ||
+                  emptyImage
+                }
+              ></Icon>
             </DivIcon>
-            <Title>Acerca de Emporio Gorroño</Title>
+            <Title>{`Acerca de ${this.state.fantasyName}`}</Title>
             <Introduction>{this.state.aboutUs}</Introduction>
-            <Title>tiéntate con nuestras categoría</Title>
+            <Title>{this.state.titleCategories}</Title>
             <Categories categories={this.state.categories}></Categories>
             <DivIcon>
-              <Icon src={emptyImage}></Icon>
+              <Icon
+                src={
+                  (this.state.iconImage &&
+                    this.state.iconImage.cloudinaryUrl) ||
+                  emptyImage
+                }
+              ></Icon>
             </DivIcon>
-            <Title>Horarios de atención</Title>
-            <DivHorario>
-              <DivText>
-                <DivBlock>
-                  <Text>Dirección : Av. José Alcalde Délano 10682</Text>
-                  <Text>Paseo Las Pataguas Local 16 comuna Lo Barnechea</Text>
-                  <Text>Lunes a Sábado 10:30 a 19:00 hrs</Text>
-                  <Text>Domingo y Festivos 10:30 a 14:30 hrs</Text>
-                  <SpecialText>
-                    "Los esperamos para tener el gusto de atenderlos"
-                  </SpecialText>
-                </DivBlock>
-              </DivText>
-              <DivImageHorario>
-                <ImageHorario src={emptyImage}></ImageHorario>
-              </DivImageHorario>
-            </DivHorario>
+            {this.state.haveInPersonService &&
+              this.state.branchStores.length > 0 && (
+                <>
+                  <Title>Horarios de atención</Title>
+                  {this.state.branchStores.length === 1 ? (
+                    <DivHorario>
+                      {this.state.branchStores.map(store => (
+                        <>
+                          <DivText key={store._id}>
+                            <DivBlock>
+                              <Text>{`Dirección : ${store.address}`}</Text>
+                              <Text>{store.comunaOrNeighborhood}</Text>
+                              {store.schedules.length > 0 &&
+                                store.schedules.map(schedule => (
+                                  <Text key={schedule._id}>
+                                    {schedule.line}
+                                  </Text>
+                                ))}
+                            </DivBlock>
+
+                            <SpecialText>{this.state.welcomeText}</SpecialText>
+                          </DivText>
+                          <DivImageHorario>
+                            <ImageHorario
+                              src={
+                                (this.state.imageSchedule &&
+                                  this.state.imageSchedule.cloudinaryUrl) ||
+                                emptyImage
+                              }
+                            ></ImageHorario>
+                          </DivImageHorario>
+                        </>
+                      ))}
+                    </DivHorario>
+                  ) : (
+                    <DivHorario multipleStores={true}>
+                      <DivText multipleStores={true}>
+                        {this.state.branchStores.map(store => (
+                          <DivBlock multipleStores={true} key={store._id}>
+                            <Text>{`Dirección : ${store.address}`}</Text>
+                            <Text>{store.comunaOrNeighborhood}</Text>
+                            {store.schedules.length > 0 &&
+                              store.schedules.map(schedule => (
+                                <Text key={schedule._id}>{schedule.line}</Text>
+                              ))}
+                          </DivBlock>
+                        ))}
+                      </DivText>
+                      <SpecialText>{this.state.welcomeText}</SpecialText>
+                      <DivImageHorario multipleStores={true}>
+                        <ImageHorario
+                          multipleStores={true}
+                          src={
+                            (this.state.imageSchedule &&
+                              this.state.imageSchedule.cloudinaryUrl) ||
+                            emptyImage
+                          }
+                        ></ImageHorario>
+                      </DivImageHorario>
+                    </DivHorario>
+                  )}
+                </>
+              )}
 
             <a href="#arriba">
               <DivGoUp>

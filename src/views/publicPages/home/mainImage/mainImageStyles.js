@@ -7,8 +7,10 @@ export const DivContainer = styled.div`
 
 export const BackgroundImage = styled.img`
   width: 100% !important;
-  height: auto !important;
+  max-height: 450px;
   position: relative !important;
+  object-fit: cover !important;
+
   img {
     width: 100% !important;
     z-index: 0;
