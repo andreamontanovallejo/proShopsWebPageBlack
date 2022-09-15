@@ -84,6 +84,8 @@ export default class HomePublicPage extends React.Component {
           IsLoading()
         ) : (
           <>
+            <a name="up"></a>
+
             <MainImage
               src={
                 (this.state.coverImage &&
@@ -91,6 +93,7 @@ export default class HomePublicPage extends React.Component {
                 emptyImage
               }
             ></MainImage>
+
             <DivIcon>
               <Icon
                 src={
@@ -119,7 +122,7 @@ export default class HomePublicPage extends React.Component {
                   <Title>Horarios de atención</Title>
                   {this.state.branchStores.length === 1 ? (
                     <DivHorario>
-                      {this.state.branchStores.map(store => (
+                      {this.state.branchStores.map((store, index) => (
                         <>
                           <DivText key={store._id}>
                             <DivBlock>
@@ -177,7 +180,7 @@ export default class HomePublicPage extends React.Component {
                 </>
               )}
 
-            <a href="#arriba">
+            <a href="#up">
               <DivGoUp>
                 <ArrowUpwardIcon />
               </DivGoUp>

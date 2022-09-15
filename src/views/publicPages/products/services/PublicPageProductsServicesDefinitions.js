@@ -1,8 +1,8 @@
 import { API_PATH } from '../../../../config'
 
 const PublicPageProductsServicesDefinitions = Object.freeze({
-  getAllProducts: sectionId => {
-    return `${API_PATH}products-by-section/get-all-products/${sectionId}`
+  getAllProducts: ({ companyId }) => {
+    return `${API_PATH}products-by-section/get-all-products/${companyId}`
   },
   setLikes: `${API_PATH}products-by-section/set-likes`,
   setLike: `${API_PATH}products-by-section/set-like`,

@@ -19,6 +19,7 @@ import ContactPublicPage from '../../views/publicPages/contact/Contact'
 import CartPublicPage from '../../views/publicPages/cart/Cart'
 import ThanksPublicPage from '../../views/publicPages/cart/components/ThanksPublicPage'
 import ShippingAndReturns from '../../views/publicPages/cart/components/ShippingAndReturns'
+import Products from '../../views/publicPages/products'
 /* import ShippingPrices from '../../views/publicPages/cart/components/ShippingPrices'
 import GourmetProducts from '../../views/publicPages/products/GourmetProducts'
 import AirFresheners from '../../views/publicPages/products/AirFresheners'
@@ -69,6 +70,11 @@ export default class Dashboard extends Component {
           path="/shippingAndReturns"
           component={ShippingAndReturns}
         />
+        <CustomRoute
+          isPrivate={false}
+          path={GetPublicPageRoute(PublicPageRoute.products)}
+          component={Products}
+        />
         {/* <CustomRoute
           isPrivate={false}
           path="/shippingPrices"
@@ -76,11 +82,7 @@ export default class Dashboard extends Component {
         /> */}
 
         {/*Products*/}
-        {/* <CustomRoute
-          isPrivate={false}
-          path={GetPublicPageRoute(PublicPageRoute.gourmetProducts)}
-          component={GourmetProducts}
-        />
+        {/* 
         <CustomRoute
           isPrivate={false}
           path={GetPublicPageRoute(PublicPageRoute.airFresheners)}

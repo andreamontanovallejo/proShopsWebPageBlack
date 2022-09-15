@@ -23,7 +23,7 @@ export const AddProductButton = props => {
 
   return (
     <>
-      {product && product.manualProductAvailability.state === 'Disponible' ? (
+      {product ? (
         storagedProducts &&
         storagedProducts.filter(e => e.id === product._id).length > 0 ? (
           <DivStoredProduct>

@@ -2,9 +2,11 @@ import PublicPageProductsServicesDefinitions from './PublicPageProductsServicesD
 import Services from '../../../../services/DefaultServices'
 
 export default class PublicPageProductsServices extends Services {
-  getAllProducts = sectionId => {
+  getAllProducts = ({ companyId }) => {
     return this.get(
-      PublicPageProductsServicesDefinitions.getAllProducts(sectionId),
+      PublicPageProductsServicesDefinitions.getAllProducts({
+        companyId,
+      }),
     )
   }
 

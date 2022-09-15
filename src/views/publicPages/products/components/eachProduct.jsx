@@ -29,7 +29,7 @@ export const Product = props => {
 
         <ProductName>{product.productName}</ProductName>
         <Measure>{`${product.measure.number} ${product.measure.measureType.name}`}</Measure>
-        <Price>{`$ ${product.price.toLocaleString('de-DE')}`}</Price>
+        <Price>{`$ ${Number(product.price).toLocaleString('de-DE')}`}</Price>
 
         <DivSpecialties>
           {product.specialties.map(each => (

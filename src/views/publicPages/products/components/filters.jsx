@@ -15,6 +15,13 @@ import SearchInput from '../../../../helpers/SearchInput'
 import { filterProductsBy } from '../utils/filterProductsBy'
 
 export const Filters = props => {
+  const {
+    selectedCategory,
+    selectedSubcategory,
+    setSelectedCategory,
+    setSelectedSubCategory,
+  } = props
+
   const categoriesWithSubcategories = props.products.reduce(
     (box, eachProduct) => {
       eachProduct.categories &&
@@ -51,16 +58,6 @@ export const Filters = props => {
     },
     [],
   )
-
-  const [selectedCategory, setSelectedCategory] = useState({
-    name: undefined,
-    id: undefined,
-  })
-
-  const [selectedSubcategory, setSelectedSubCategory] = useState({
-    name: undefined,
-    id: undefined,
-  })
 
   useEffect(() => {
     if (selectedCategory.id === undefined) {
@@ -159,7 +156,7 @@ export const Filters = props => {
           placeholder={'Buscar producto por nombre'}
           showIcon
           onChange={value => {
-            if (value.trim !== '') {
+            if (value.trim() !== '') {
               props.setFilteredProducts(
                 filterProductsBy({
                   filterBy: 'name',

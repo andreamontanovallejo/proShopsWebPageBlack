@@ -16,10 +16,7 @@ export const GetAdminRoute = url => {
 export const PublicPageRoute = {
   base: '/products',
   oneProduct: '/product/:productId',
-  /*   gourmetProducts: '/gourmetProducts/:id/:categoryId/:subcategoryId',
-  airFresheners: '/airFresheners/:id/:categoryId/:subcategoryId',
-  menage: '/menage/:id/:categoryId/:subcategoryId',
-  aperitivos: '/aperitivos/:id/:categoryId/:subcategoryId', */
+  products: '/:id/:categoryId/:subcategoryId',
 }
 
 export const GetPublicPageRoute = url => {
