@@ -122,7 +122,11 @@ export const DivSpecialties = styled.div`
   flex-wrap: wrap;
   align-items: center;
   width: 100%;
-  height: 130px;
+
+  ${props =>
+    css`
+      height: ${props.measureInBulk ? '77px' : '130px'};
+    `};
   justify-content: space-around;
   background-color: ${Colors.ultraSoftGray};
 `
@@ -656,5 +660,36 @@ export const Specialties = styled.div`
 
   @media (min-width: 901px) {
     margin: 5% 0 8% 0;
+  }
+`
+
+export const SaleByMeasureInBulk = styled.div`
+  color: green;
+  text-align: center;
+  background-color: ${Colors.ultraSoftGray};
+
+  @media (max-width: 599px) {
+  }
+
+  @media (min-width: 600px) and (max-width: 900px) {
+  }
+
+  @media (min-width: 901px) {
+  }
+`
+
+export const NotAvailable = styled.div`
+  color: ${Colors.errors};
+  text-align: center;
+  background-color: ${Colors.ultraSoftGray};
+  font-weight: bolder;
+
+  @media (max-width: 599px) {
+  }
+
+  @media (min-width: 600px) and (max-width: 900px) {
+  }
+
+  @media (min-width: 901px) {
   }
 `

@@ -24,10 +24,10 @@ export default class PublicPageProductsServices extends Services {
     )
   }
 
-  getProductsToBuy = savedProducts => {
+  getProductsToBuy = data => {
     return this.put(
       PublicPageProductsServicesDefinitions.getProductsToBuy,
-      savedProducts,
+      data,
     )
   }
 

@@ -20,12 +20,6 @@ import CartPublicPage from '../../views/publicPages/cart/Cart'
 import ThanksPublicPage from '../../views/publicPages/cart/components/ThanksPublicPage'
 import ShippingAndReturns from '../../views/publicPages/cart/components/ShippingAndReturns'
 import Products from '../../views/publicPages/products'
-/* import ShippingPrices from '../../views/publicPages/cart/components/ShippingPrices'
-import GourmetProducts from '../../views/publicPages/products/GourmetProducts'
-import AirFresheners from '../../views/publicPages/products/AirFresheners'
-import Menage from '../../views/publicPages/products/Menage'
-import Aperitivos from '../../views/publicPages/products/Aperitivos'
-import Oneproduct from '../../views/publicPages/products/OneProduct' */
 
 export default class Dashboard extends Component {
   render() {
@@ -58,6 +52,7 @@ export default class Dashboard extends Component {
         <CustomRoute
           isPrivate={false}
           path="/cart"
+          exact
           component={CartPublicPage}
         />
         <CustomRoute
@@ -80,30 +75,6 @@ export default class Dashboard extends Component {
           path="/shippingPrices"
           component={ShippingPrices}
         /> */}
-
-        {/*Products*/}
-        {/* 
-        <CustomRoute
-          isPrivate={false}
-          path={GetPublicPageRoute(PublicPageRoute.airFresheners)}
-          component={AirFresheners}
-        />
-        <CustomRoute
-          isPrivate={false}
-          path={GetPublicPageRoute(PublicPageRoute.menage)}
-          component={Menage}
-        />
-        <CustomRoute
-          isPrivate={false}
-          path={GetPublicPageRoute(PublicPageRoute.aperitivos)}
-          component={Aperitivos}
-        />
-        <CustomRoute
-          isPrivate={false}
-          path={GetPublicPageRoute(PublicPageRoute.oneProduct)}
-          component={Oneproduct}
-        /> */}
-        {/*user creation */}
       </MainLayout>
     )
   }

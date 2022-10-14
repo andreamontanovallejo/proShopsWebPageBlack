@@ -33,7 +33,26 @@ export default class ContactPublicPage extends React.Component {
       contactEmail: '',
       contactPhone: '',
       contactMessage: '',
+      contactInformation: {},
     }
+  }
+
+  componentDidMount() {
+    this.getContactInformation()
+  }
+
+  getContactInformation = () => {
+    this.setState({
+      isLoading: true,
+    })
+
+    this.services
+      .getContactInformation(process.env.REACT_APP_COMPANYID)
+      .then(res => {
+        this.setState({
+          contactInformation: res.data.contactInformation,
+        })
+      })
   }
 
   onChangeText = event => {
@@ -89,30 +108,31 @@ export default class ContactPublicPage extends React.Component {
           <Title>Información de Contacto</Title>
           <Item>
             <Information>
-              <MailIcon /> <div>emporiogorrono@gmail.com</div>
+              <MailIcon /> <div>{this.state.contactInformation.email}</div>
             </Information>
           </Item>
 
           <Item>
             <Information>
-              <PhoneInTalkIcon /> <div>(+56) 9 5390 4343</div>
+              <PhoneInTalkIcon />{' '}
+              <div>{this.state.contactInformation.phone}</div>
             </Information>
           </Item>
 
           <Item>
             <Information>
               <LocationOnIcon />
-              <div>
-                Paseo las Pataguas - Lo Barnechea, Av. Jose Alcalde Délano -
-                Local 16
-              </div>
+              <div>{this.state.contactInformation.address}</div>
             </Information>
           </Item>
         </DivContactInformation>
         <DivMap>
           <iframe
-            title="mapaGoogleEmporioGorrono"
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3332.606836869437!2d-70.53935668462755!3d-33.35521990001754!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9662c9659088e72f%3A0xd6531a76eba2390e!2sLas%20Pataguas%20Paseo!5e0!3m2!1ses-419!2scl!4v1634767085205!5m2!1ses-419!2scl"
+            title="mapaGoogleProShops"
+            src={
+              this.state.contactInformation.urlGoogleMapsIframe &&
+              this.state.contactInformation.urlGoogleMapsIframe.slice(13, -10)
+            }
           ></iframe>
         </DivMap>
         <DivForm>

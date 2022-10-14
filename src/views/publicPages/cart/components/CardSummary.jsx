@@ -10,6 +10,8 @@ import {
   DivCardSummary,
   Error,
 } from './cardSummaryStyles'
+import { useState } from 'react'
+import { useEffect } from 'react'
 
 export const CardSummary = props => {
   const {
@@ -22,14 +24,35 @@ export const CardSummary = props => {
     unauthorizedDelivery,
     shipment,
   } = props
+  console.log('savedProducts', savedProducts)
+  const [totalProducts, setTotalProducts] = useState(
+    savedProducts.reduce((acc, curr) => {
+      const productsFound =
+        products.length > 0 && products.find(e => e._id === curr.id)
 
-  const totalProducts = savedProducts.reduce((acc, curr) => {
-    const pricePerProductType =
-      products.find(e => e._id === curr.id).price * curr.quantity
+      const pricePerProductType = productsFound
+        ? productsFound.price * curr.quantity
+        : 0
 
-    acc = acc + pricePerProductType
-    return acc
-  }, 0)
+      acc = acc + pricePerProductType
+      return acc
+    }, 0),
+  )
+  useEffect(() => {
+    setTotalProducts(
+      savedProducts.reduce((acc, curr) => {
+        const productsFound =
+          products.length > 0 && products.find(e => e._id === curr.id)
+
+        const pricePerProductType = productsFound
+          ? productsFound.price * curr.quantity
+          : 0
+
+        acc = acc + pricePerProductType
+        return acc
+      }, 0),
+    )
+  }, [savedProducts])
 
   const total = totalProducts + deliveryPrice
 

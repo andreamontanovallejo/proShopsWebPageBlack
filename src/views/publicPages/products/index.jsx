@@ -21,6 +21,7 @@ export default class Products extends React.Component {
     this.state = {
       isLoading: false,
       allProducts: [],
+      measuresInBulks: [],
       productsFiltered: [],
       productBySection: [],
       currentSectionId: '',
@@ -75,14 +76,15 @@ export default class Products extends React.Component {
       })
       .then(res => {
         const productBySection = filterProductsBySection({
-          products: res.data,
+          products: res.data.allProducts,
           sectionId: this.props.match.params.id,
         })
         this.setState({
-          allProducts: res.data,
-          productsFiltered: productBySection,
-          productBySection: productBySection,
+          allProducts: res.data.allProducts,
           isLoading: false,
+          measuresInBulks: res.data.measuresInBulks,
+          productBySection: productBySection,
+          productsFiltered: productBySection,
         })
       })
       .finally(() => {
@@ -109,14 +111,23 @@ export default class Products extends React.Component {
   setLikes = (productId, likeOrDislike) => {
     this.services
       .setLikes({
-        sectionId: this.sectionId,
         productId,
-        likeOrDislike: likeOrDislike,
+        likeOrDislike,
       })
       .then(res => {
         this.setState({
-          products: res.data,
-          productsFiltered: res.data,
+          allProducts: this.state.allProducts.reduce((acc, curr) => {
+            if (curr._id === res.data._id) {
+              acc.push(
+                Object.assign(curr, {
+                  likes: res.data.likes,
+                }),
+              )
+            } else {
+              acc.push(curr)
+            }
+            return acc
+          }, []),
         })
       })
   }
@@ -172,6 +183,7 @@ export default class Products extends React.Component {
               {this.state.productsFiltered &&
                 this.state.productsFiltered.map(product => (
                   <Product
+                    measuresInBulks={this.state.measuresInBulks}
                     key={product._id}
                     product={product}
                     props={this.props}

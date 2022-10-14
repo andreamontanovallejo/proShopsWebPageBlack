@@ -1,6 +1,6 @@
 import React from 'react'
 import Loader from 'react-loader-spinner'
-import { PublicPageProductsServices } from '../../../services/index'
+import { PublicPageProductsServices } from '../../../services'
 import { DivContainer, DivContent, FirstLine } from './cartStyles'
 import Steeper from './components/Steeper'
 import { StepOne } from './components/StepOne'
@@ -32,12 +32,24 @@ export default class CartPublicPage extends React.Component {
     })
     const savedProducts = this.state.savedProducts.map(e => e.id)
 
-    this.services.getProductsToBuy(savedProducts).then(res => {
-      this.setState({
-        isLoading: false,
-        products: res.data,
+    this.services
+      .getProductsToBuy({
+        savedProducts,
+        companyId: process.env.REACT_APP_COMPANYID,
       })
-    })
+      .then(res => {
+        console.log('ressss', res.data)
+        this.setState({
+          isLoading: false,
+          products: res.data,
+          savedProducts: this.state.savedProducts.reduce((acc, curr) => {
+            if (res.data.find(e => e._id === curr.id)) {
+              acc.push(curr)
+            }
+            return acc
+          }, []),
+        })
+      })
   }
 
   setSavedProducts = newArray => {
@@ -121,7 +133,7 @@ export default class CartPublicPage extends React.Component {
         )
 
         break
-      case 2:
+      /* case 2:
         activeStep = (
           <StepTwo
             acceptOrder={this.acceptOrder}
@@ -136,7 +148,7 @@ export default class CartPublicPage extends React.Component {
       case 3:
         activeStep = <DivContent></DivContent>
 
-        break
+        break */
       default:
         break
     }

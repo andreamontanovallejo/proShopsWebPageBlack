@@ -40,6 +40,7 @@ export const AddProductButton = props => {
         ) : (
           <Button
             icon={'ShoppingCartIcon'}
+            disabled={product.pricePerMeasure} // Momentaneo, mientras se crea proveedores y se pueden obtener las unidades disponibles.
             background={'green'}
             textColor={'white'}
             text={'Agregar'}

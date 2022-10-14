@@ -33,7 +33,7 @@ export const StepOne = props => {
           <DivSummary className={`card`}>
             {`Carrito de compras: ${products.length} producto(s)`}
           </DivSummary>
-          {savedProducts && savedProducts.length > 0 ? (
+          {products.length > 0 && savedProducts && savedProducts.length > 0 ? (
             savedProducts
               .sort((a, b) => a.id.localeCompare(b.id))
               .map(productSaved => (

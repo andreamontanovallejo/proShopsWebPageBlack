@@ -8,6 +8,8 @@ import {
   DivImageSpecialty,
   DivButton,
   Span,
+  SaleByMeasureInBulk,
+  NotAvailable,
 } from '../productsStyles'
 import { Image, Transformation } from 'cloudinary-react'
 
@@ -28,11 +30,30 @@ export const Product = props => {
         />
 
         <ProductName>{product.productName}</ProductName>
-        <Measure>{`${product.measure.number} ${product.measure.measureType.name}`}</Measure>
-        <Price>{`$ ${Number(product.price).toLocaleString('de-DE')}`}</Price>
 
-        <DivSpecialties>
-          {product.specialties.map(each => (
+        {product.pricePerMeasure && (
+          <>
+            <SaleByMeasureInBulk>{`Venta por ${
+              props.measuresInBulks.find(
+                e => e._id === product.measureInBulk._id,
+              ).salePer
+            }`}</SaleByMeasureInBulk>
+            <NotAvailable>Temporalmente no disponible</NotAvailable>
+          </>
+        )}
+        <Measure>{`${product.measure.number} ${
+          product.pricePerMeasure
+            ? props.measuresInBulks.find(
+                e => e._id === product.measureInBulk._id,
+              ).salePer
+            : product.measure.measureType.name
+        }`}</Measure>
+        <Price>{`$ ${Number(Number(product.price).toFixed()).toLocaleString(
+          'de-DE',
+        )}`}</Price>
+
+        <DivSpecialties measureInBulk={product.measureInBulk}>
+          {product.specialties.slice(0, 4).map(each => (
             <DivImageSpecialty key={each._id}>
               <Image
                 key={each._id}
