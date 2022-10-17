@@ -8,11 +8,55 @@ import {
   RightSideSmallScreen,
   DivSummary,
 } from '../cartStyles'
+import { useEffect } from 'react'
 
 export const StepOne = props => {
-  const { acceptOrder, products, savedProducts, setSavedProducts, step } = props
+  const {
+    acceptOrder,
+    legalDocumentoToTheOrder,
+    offerInvoice,
+    products,
+    salesDocumentTypes,
+    savedProducts,
+    setLegalDocument,
+    setSavedProducts,
+    step,
+  } = props
 
   const [storaged, setStoraged] = useState(savedProducts)
+  useEffect(() => {
+    setStoraged(savedProducts)
+  }, [savedProducts])
+
+  const [totalProducts, setTotalProducts] = useState(
+    savedProducts.reduce((acc, curr) => {
+      const productsFound =
+        products.length > 0 && products.find(e => e._id === curr.id)
+
+      const pricePerProductType = productsFound
+        ? productsFound.price * curr.quantity
+        : 0
+
+      acc = acc + pricePerProductType
+      return acc
+    }, 0),
+  )
+
+  useEffect(() => {
+    setTotalProducts(
+      savedProducts.reduce((acc, curr) => {
+        const productsFound =
+          products.length > 0 && products.find(e => e._id === curr.id)
+
+        const pricePerProductType = productsFound
+          ? productsFound.price * curr.quantity
+          : 0
+
+        acc = acc + pricePerProductType
+        return acc
+      }, 0),
+    )
+  }, [savedProducts])
 
   const error = storaged.find(e => e.error)
 
@@ -21,11 +65,16 @@ export const StepOne = props => {
       <RightSideSmallScreen>
         <CardSummary
           acceptOrder={acceptOrder}
-          error={error}
-          products={products}
-          savedProducts={storaged}
-          step={step}
           deliveryPrice={0}
+          error={error}
+          legalDocumentoToTheOrder={legalDocumentoToTheOrder}
+          offerInvoice={offerInvoice}
+          products={products}
+          salesDocumentTypes={salesDocumentTypes}
+          savedProducts={storaged}
+          setLegalDocument={setLegalDocument}
+          step={step}
+          totalProducts={totalProducts}
         />
       </RightSideSmallScreen>
       <DivContent>
@@ -52,11 +101,16 @@ export const StepOne = props => {
         <RightSideBigScreen>
           <CardSummary
             acceptOrder={acceptOrder}
-            error={error}
-            products={products}
-            savedProducts={storaged}
-            step={step}
             deliveryPrice={0}
+            error={error}
+            legalDocumentoToTheOrder={legalDocumentoToTheOrder}
+            offerInvoice={offerInvoice}
+            products={products}
+            salesDocumentTypes={salesDocumentTypes}
+            savedProducts={storaged}
+            setLegalDocument={setLegalDocument}
+            step={step}
+            totalProducts={totalProducts}
           />
         </RightSideBigScreen>
       </DivContent>

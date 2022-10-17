@@ -65,3 +65,18 @@ export const Error = styled.div`
     font-weight: bold;
   }
 `
+
+export const LegalDocumentTicket = styled.div`
+  color: ${Colors.blue};
+  margin: 3% 0;
+  text-transform: uppercase;
+  font-size: 1em;
+  text-align: center;
+  @media (max-width: 599px) {
+    font-weight: bold;
+  }
+`
+
+export const DivSelect = styled.div`
+  margin: 8% 0 !important;
+`

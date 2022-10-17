@@ -79,7 +79,7 @@ export const About = styled.div`
   @media (min-width: 600px) {
     width: 80%;
     position: relative;
-    top: 30px;
+    top: 15px;
   }
 `
 

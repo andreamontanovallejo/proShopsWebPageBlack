@@ -19,19 +19,20 @@ export default class Products extends React.Component {
     this.categoryToFilter = this.props.match.params.categoryId
     this.services = new PublicPageProductsServices()
     this.state = {
-      isLoading: false,
       allProducts: [],
-      measuresInBulks: [],
-      productsFiltered: [],
-      productBySection: [],
       currentSectionId: '',
+      isLoading: false,
+      measuresInBulks: [],
+      priceListToUse: undefined,
+      productBySection: [],
+      productsFiltered: [],
       selectedCategory: {
-        name: undefined,
         id: undefined,
+        name: undefined,
       },
       selectedSubcategory: {
-        name: undefined,
         id: undefined,
+        name: undefined,
       },
     }
   }
@@ -83,6 +84,7 @@ export default class Products extends React.Component {
           allProducts: res.data.allProducts,
           isLoading: false,
           measuresInBulks: res.data.measuresInBulks,
+          priceListToUse: res.data.priceListToUse,
           productBySection: productBySection,
           productsFiltered: productBySection,
         })
@@ -183,8 +185,9 @@ export default class Products extends React.Component {
               {this.state.productsFiltered &&
                 this.state.productsFiltered.map(product => (
                   <Product
-                    measuresInBulks={this.state.measuresInBulks}
                     key={product._id}
+                    measuresInBulks={this.state.measuresInBulks}
+                    priceListToUse={this.state.priceListToUse}
                     product={product}
                     props={this.props}
                     setLikes={this.setLikes}

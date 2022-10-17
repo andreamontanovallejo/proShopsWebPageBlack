@@ -126,6 +126,19 @@ export const TitleSmallScreen = styled.div`
   }
 `
 
+export const TitleBigScreen = styled.div`
+  @media (max-width: 599px) {
+    display: none;
+  }
+  @media (min-width: 600px) {
+    text-align: center;
+    font-weight: bolder;
+    width: 100%;
+    color: green;
+    margin-top: 2%;
+  }
+`
+
 export const OptionSearchInStore = styled.div`
   padding: 4%;
   border: 1px solid #555555;

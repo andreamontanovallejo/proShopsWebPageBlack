@@ -1,72 +1,44 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import Input from '../../../../helpers/InputText'
 import InputMultiline from '../../../../helpers/InputMultiline'
 import Select from '../../../../helpers/Select'
 import Button from '../../../../helpers/Button'
-
-import { DivInput, DivSend, DivSelect } from './formPersonalDataStyles'
+import { filterComunaOptions } from '../utils/filterComunaOptions'
+import {
+  DivInput,
+  DivSend,
+  DivSelect,
+  TextAlert,
+  TextError,
+} from './formPersonalDataStyles'
 
 export default function FormPersonalData(props) {
-  const documentTypeOptions = [
-    { englishName: 'Rut', spanishName: 'Rut' },
-    { englishName: 'Id', spanishName: 'Documento de identidad' },
-  ]
+  const [comunaOptions, setComunaOptions] = useState(
+    filterComunaOptions({
+      chileanRegionsAndComunas:
+        props.deliveryInformation.chileanRegionsAndComunas,
+      comunaDeliveryPrices: props.deliveryInformation.comunaDeliveryPrices,
+      comunaShipmentPrices: props.deliveryInformation.comunaShipmentPrices,
+      customerRegion: props.customerRegion,
+    }),
+  )
 
-  const region = [
-    { name: 'Metropolitana de Santiago' },
-    { name: 'Arica y Parinacota' },
-    { name: 'Tarapacá' },
-    { name: 'Antofagasta' },
-    { name: 'Atacama' },
-    { name: 'Coquimbo' },
-    { name: 'Valparaíso' },
-    { name: 'Libertador General Bernardo OHiggins' },
-    { name: 'Maule' },
-    { name: 'Ñuble' },
-    { name: 'Biobío' },
-    { name: 'Araucanía' },
-    { name: 'Los Ríos' },
-    { name: 'Los Lagos' },
-    { name: 'Aysén del General Carlos Ibáñez del Campo' },
-    { name: 'Magallanes y de la Antártica Chilena' },
-  ]
-
-  const comuna = [
-    { name: 'Cerrillos', deliveryPrice: 5000 },
-    { name: 'Cerro Navia', deliveryPrice: 4500 },
-    { name: 'Conchalí', deliveryPrice: 4500 },
-    { name: 'Estación Central', deliveryPrice: 4500 },
-    { name: 'Huechuraba', deliveryPrice: 4500 },
-    { name: 'Independencia', deliveryPrice: 4500 },
-    { name: 'La Cisterna', deliveryPrice: 5000 },
-    { name: 'La Florida', deliveryPrice: 5000 },
-    { name: 'La Granja', deliveryPrice: 5000 },
-    { name: 'La Reina', deliveryPrice: 4000 },
-    { name: 'Las Condes', deliveryPrice: 4000 },
-    { name: 'Lo Barnechea', deliveryPrice: 4000 },
-    { name: 'Lo Espejo', deliveryPrice: 5000 },
-    { name: 'Lo Prado', deliveryPrice: 4500 },
-    { name: 'Macul', deliveryPrice: 5000 },
-    { name: 'Maipu', deliveryPrice: 6000 },
-    { name: 'Ñuñoa', deliveryPrice: 4000 },
-    { name: 'Pedro Agurre Cerda', deliveryPrice: 5000 },
-    { name: 'Peñalolén', deliveryPrice: 5000 },
-    { name: 'Providencia', deliveryPrice: 4000 },
-    { name: 'Pudahuel', deliveryPrice: 6000 },
-    { name: 'Puente Alto', deliveryPrice: 6000 },
-    { name: 'Quilicura', deliveryPrice: 4500 },
-    { name: 'Quinta Normal', deliveryPrice: 4500 },
-    { name: 'Recoleta', deliveryPrice: 4500 },
-    { name: 'Renca', deliveryPrice: 4500 },
-    { name: 'San Bernardo', deliveryPrice: 6000 },
-    { name: 'San Joaquín', deliveryPrice: 5000 },
-    { name: 'San Miguel', deliveryPrice: 5000 },
-    { name: 'San Ramón', deliveryPrice: 5000 },
-    { name: 'Santiago Centro', deliveryPrice: 4500 },
-    { name: 'Santiago', deliveryPrice: 4500 },
-    { name: 'Vitacura', deliveryPrice: 4000 },
-    { name: 'Otra comuna', deliveryPrice: 0 },
-  ]
+  useEffect(() => {
+    setComunaOptions(
+      filterComunaOptions({
+        chileanRegionsAndComunas:
+          props.deliveryInformation.chileanRegionsAndComunas,
+        comunaDeliveryPrices: props.deliveryInformation.comunaDeliveryPrices,
+        comunaShipmentPrices: props.deliveryInformation.comunaShipmentPrices,
+        customerRegion: props.customerRegion,
+      }),
+    )
+  }, [
+    props.deliveryInformation.chileanRegionsAndComunas,
+    props.deliveryInformation.comunaDeliveryPrices,
+    props.deliveryInformation.comunaShipmentPrices,
+    props.customerRegion,
+  ])
 
   return (
     <>
@@ -98,9 +70,9 @@ export default function FormPersonalData(props) {
           placeholder={'Tipo de documento'}
           name={'customerDocumentType'}
           onChange={value => props.setCustomerDocumentType(value)}
-          arrayOptions={documentTypeOptions}
-          keyValueName={'englishName'}
-          keyMessageName={'spanishName'}
+          arrayOptions={props.deliveryInformation.legalIdDocumentTypes}
+          keyValueName={'_id'}
+          keyMessageName={'name'}
           defaultValue={props.customerDocumentType}
         />
       </DivSelect>
@@ -136,71 +108,95 @@ export default function FormPersonalData(props) {
               error={[]}
               placeholder={'Región'}
               name={'region'}
-              onChange={value => props.setCustomerRegion(value)}
-              arrayOptions={region}
-              keyValueName={'name'}
+              onChange={value => {
+                props.setCustomerRegion(value)
+                props.setCustomerComuna(undefined)
+                props.setCollectorType(undefined)
+              }}
+              arrayOptions={props.deliveryInformation.chileanRegionsAndComunas.sort(
+                (a, b) => a.number - b.number,
+              )}
+              keyValueName={'_id'}
               keyMessageName={'name'}
               defaultValue={props.customerRegion}
             />
           </DivSelect>
 
-          {props.customerRegion === 'Metropolitana de Santiago' && (
+          {props.customerRegion && comunaOptions.length > 0 && (
             <DivSelect>
               <Select
                 error={[]}
                 placeholder={'Comuna'}
                 name={'comuna'}
                 onChange={value => {
-                  props.setCustomerComuna(value)
+                  props.setCustomerComuna(
+                    comunaOptions.find(e => e._id === value).comunaId,
+                  )
                   props.setDeliveryPrice(
-                    comuna.find(e => e.name === value).deliveryPrice,
+                    comunaOptions.find(e => e._id === value).deliveryPrice,
+                  )
+                  props.setCollectorType(
+                    comunaOptions.find(e => e._id === value).collectorType,
                   )
                 }}
-                arrayOptions={comuna}
-                keyValueName={'name'}
+                arrayOptions={comunaOptions}
+                keyValueName={'_id'}
                 keyMessageName={'name'}
-                defaultValue={props.customerComuna}
+                defaultValue={
+                  props.customerComuna
+                    ? comunaOptions.find(
+                        e => e.comunaId === props.customerComuna,
+                      )._id
+                    : undefined
+                }
               />
             </DivSelect>
           )}
-
-          {(props.customerComuna === 'Otra comuna' ||
-            props.customerRegion !== 'Metropolitana de Santiago') && (
-            <DivInput>
-              <Input
-                type={'text'}
-                name={'customerCity'}
-                placeholder={'Escriba su ciudad y/o comuna'}
-                error={[]}
-                onChange={event => props.setCustomerCity(event.target.value)}
-                defaultValue={props.customerCity}
-              />
-            </DivInput>
-          )}
-
-          <DivInput>
-            <Input
-              type={'text'}
-              name={'customerAddress'}
-              placeholder={'Escriba su dirección completa'}
-              error={[]}
-              onChange={event => props.setCustomerAddress(event.target.value)}
-              defaultValue={props.customerAddress}
-            />
-          </DivInput>
+          {props.customerRegion &&
+            comunaOptions.length > 0 &&
+            props.customerComuna && (
+              <DivInput>
+                <Input
+                  type={'text'}
+                  name={'customerAddress'}
+                  placeholder={'Escriba su dirección completa'}
+                  error={[]}
+                  onChange={event =>
+                    props.setCustomerAddress(event.target.value)
+                  }
+                  defaultValue={props.customerAddress}
+                />
+              </DivInput>
+            )}
         </>
       )}
 
-      <DivInput>
-        <InputMultiline
-          type={'text'}
-          name={'customerNotes'}
-          placeholder={'Notas adicionales (opcional):'}
-          error={[]}
-          onChange={event => props.setCustomerNotes(event.target.value)}
-          defaultValue={props.customerNotes}
-        />
-      </DivInput>
+      {props.customerRegion &&
+        comunaOptions.length > 0 &&
+        props.customerComuna && (
+          <DivInput>
+            <InputMultiline
+              type={'text'}
+              name={'customerNotes'}
+              placeholder={'Notas adicionales (opcional):'}
+              error={[]}
+              onChange={event => props.setCustomerNotes(event.target.value)}
+              defaultValue={props.customerNotes}
+            />
+          </DivInput>
+        )}
+
+      {props.customerRegion && comunaOptions.length === 0 && (
+        <TextError>Actualmente no tenemos despacho para esta región.</TextError>
+      )}
+
+      {props.customerRegion && comunaOptions.length > 0 && (
+        <TextAlert>
+          Si su comuna no se encuentra en la lista, actualmente no está en
+          nuestra área de despacho.
+        </TextAlert>
+      )}
+
       <DivSend>
         <Button
           onClick={() =>

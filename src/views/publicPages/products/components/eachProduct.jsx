@@ -48,9 +48,17 @@ export const Product = props => {
               ).salePer
             : product.measure.measureType.name
         }`}</Measure>
-        <Price>{`$ ${Number(Number(product.price).toFixed()).toLocaleString(
-          'de-DE',
-        )}`}</Price>
+        <Price>{`$ ${
+          props.priceListToUse === '62fdccfaf8f153b5f9d77209'
+            ? Number(Number(product.price).toFixed()).toLocaleString('de-DE')
+            : Number(
+                Number(
+                  product.priceLists.find(
+                    e => e.listId === props.priceListToUse,
+                  ).value,
+                ).toFixed(),
+              ).toLocaleString('de-DE')
+        }`}</Price>
 
         <DivSpecialties measureInBulk={product.measureInBulk}>
           {product.specialties.slice(0, 4).map(each => (

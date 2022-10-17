@@ -11,12 +11,29 @@ export default class CartPublicPage extends React.Component {
     super(props)
     this.services = new PublicPageProductsServices()
     this.state = {
-      isLoading: false,
-      savedProducts: JSON.parse(localStorage.getItem('shoppingCartProshops')),
-      products: [],
-      step: 1,
       customerInformation: {},
+      deliveryInformation: {
+        branchStores: undefined,
+        chileanRegionsAndComunas: undefined,
+        companyHaveOwnDeliverySystem: undefined,
+        companyHavePickupAtStore: undefined,
+        companyHaveThirdPartyShipment: undefined,
+        comunaDeliveryPrices: undefined,
+        comunaShipmentPrices: undefined,
+        deliveryConditions: undefined,
+        legalIdDocumentTypes: undefined,
+        messageForComunasWithoutDelivery: undefined,
+        offerInvoice: undefined,
+        salesDocumentTypes: [],
+      },
+      isLoading: false,
+      priceListToUse: undefined,
+      priceListsToUse: [],
+      products: [],
+      savedProducts: JSON.parse(localStorage.getItem('shoppingCartProshops')),
+      step: 1,
       urlPaymentMercadoPago: '',
+      legalDocumentoToTheOrder: '62f02e8a59f813792c5cdfcb', // Boleta
     }
   }
 
@@ -38,12 +55,15 @@ export default class CartPublicPage extends React.Component {
         companyId: process.env.REACT_APP_COMPANYID,
       })
       .then(res => {
-        console.log('ressss', res.data)
+        console.log('res.data', res.data)
         this.setState({
           isLoading: false,
-          products: res.data,
+          deliveryInformation: res.data.deliveryInformation,
+          priceListToUse: res.data.priceListToUse,
+          priceListsToUse: res.data.priceListsToUse,
+          products: res.data.products,
           savedProducts: this.state.savedProducts.reduce((acc, curr) => {
-            if (res.data.find(e => e._id === curr.id)) {
+            if (res.data.products.find(e => e._id === curr.id)) {
               acc.push(curr)
             }
             return acc
@@ -58,48 +78,30 @@ export default class CartPublicPage extends React.Component {
     })
   }
 
+  setLegalDocument = value => {
+    this.setState({
+      legalDocumentoToTheOrder: value,
+    })
+  }
+
   acceptOrder = () => {
     this.setState({
       step: 2,
     })
   }
 
-  goToPayment = customerInformation => {
+  goToPayment = newSale => {
     this.setState({
       isLoading: true,
     })
 
-    this.services
-      .sendPurchaseInformation({
-        products: this.state.savedProducts.map(product => {
-          const findProduct = this.state.products.find(
-            e => e._id === product.id,
-          )
-          return {
-            product: findProduct,
-            quantity: product.quantity,
-            colorsSelected: product.colorsSelected && [
-              ...product.colorsSelected
-                .filter(e => parseInt(e.quantity) !== 0)
-                .map(color => {
-                  return {
-                    colorName: color.colorName,
-                    quantity: color.quantity,
-                  }
-                }),
-            ],
-          }
-        }),
-        payer: customerInformation,
-        deliveryPrice: customerInformation.deliveryPrice,
+    this.services.sendPurchaseInformation(newSale).then(res => {
+      this.setState({
+        urlPaymentMercadoPago: res.data,
+        isLoading: false,
       })
-      .then(res => {
-        this.setState({
-          urlPaymentMercadoPago: res.data,
-          isLoading: false,
-        })
-        window.location.replace(`${res.data}`)
-      })
+      window.location.replace(`${res.data}`)
+    })
   }
 
   render() {
@@ -125,19 +127,31 @@ export default class CartPublicPage extends React.Component {
         activeStep = (
           <StepOne
             acceptOrder={this.acceptOrder}
+            legalDocumentoToTheOrder={this.state.legalDocumentoToTheOrder}
+            offerInvoice={this.state.deliveryInformation.offerInvoice}
             products={this.state.products}
+            salesDocumentTypes={
+              this.state.deliveryInformation.salesDocumentTypes
+            }
             savedProducts={this.state.savedProducts}
+            setLegalDocument={this.setLegalDocument}
             setSavedProducts={this.setSavedProducts}
             step={this.state.step}
           />
         )
 
         break
-      /* case 2:
+      case 2:
         activeStep = (
           <StepTwo
             acceptOrder={this.acceptOrder}
+            deliveryInformation={this.state.deliveryInformation}
             goToPayment={this.goToPayment}
+            legalDocumentoToTheOrder={this.state.legalDocumentoToTheOrder}
+            priceListToUse={this.state.priceListToUse}
+            priceListsToUseFound={this.state.priceListsToUse.find(
+              e => e._id === this.state.priceListToUse,
+            )}
             products={this.state.products}
             savedProducts={this.state.savedProducts}
             step={this.state.step}
@@ -148,7 +162,7 @@ export default class CartPublicPage extends React.Component {
       case 3:
         activeStep = <DivContent></DivContent>
 
-        break */
+        break
       default:
         break
     }

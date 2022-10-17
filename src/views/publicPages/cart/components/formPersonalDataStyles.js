@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { Colors } from '../../../../assets/styles/variables'
 
 export const DivInput = styled.div`
   width: 100%;
@@ -35,5 +36,19 @@ export const DivSend = styled.div`
 
 export const DivSelect = styled.div`
   width: 100%;
+  padding: 1%;
+`
+
+export const TextAlert = styled.div`
+  width: 100%;
+  color: ${Colors.blue};
+  font-weight: bolder;
+  padding: 1%;
+`
+
+export const TextError = styled.div`
+  width: 100%;
+  color: ${Colors.errors};
+  font-weight: bolder;
   padding: 1%;
 `

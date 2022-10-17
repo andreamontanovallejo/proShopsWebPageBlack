@@ -56,7 +56,7 @@ export const CardProduct = props => {
         <ContentProduct>
           <About>
             <ProductName>{product.productName}</ProductName>
-            <Packaging>{`${product.packaging.name} de ${product.measure.number} ${product.measure.measureType.name}`}</Packaging>
+            <Packaging>{`${product.packaging[0].name} de ${product.measure.number} ${product.measure.measureType.name}`}</Packaging>
 
             <PriceSmallScreen>{`Precio unitario: $${product.price.toLocaleString(
               'de-DE',

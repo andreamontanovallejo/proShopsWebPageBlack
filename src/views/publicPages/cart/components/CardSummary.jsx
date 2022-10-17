@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Divider } from '@material-ui/core'
 import Button from '../../../../helpers/Button'
+import Select from '../../../../helpers/Select'
 import {
   CardTitle,
   CardTotalAmount,
@@ -8,51 +9,28 @@ import {
   CardTotalProducts,
   DivButton,
   DivCardSummary,
+  DivSelect,
   Error,
+  LegalDocumentTicket,
 } from './cardSummaryStyles'
-import { useState } from 'react'
-import { useEffect } from 'react'
 
 export const CardSummary = props => {
   const {
     acceptOrder,
-    error,
-    products,
-    savedProducts,
-    step,
+    deliveryInformation,
     deliveryPrice,
-    unauthorizedDelivery,
+    error,
+    legalDocumentoToTheOrder,
+    offerInvoice,
+    products,
+    salesDocumentTypes,
+    savedProducts,
+    setLegalDocument,
     shipment,
+    step,
+    totalProducts,
+    unauthorizedDelivery,
   } = props
-  console.log('savedProducts', savedProducts)
-  const [totalProducts, setTotalProducts] = useState(
-    savedProducts.reduce((acc, curr) => {
-      const productsFound =
-        products.length > 0 && products.find(e => e._id === curr.id)
-
-      const pricePerProductType = productsFound
-        ? productsFound.price * curr.quantity
-        : 0
-
-      acc = acc + pricePerProductType
-      return acc
-    }, 0),
-  )
-  useEffect(() => {
-    setTotalProducts(
-      savedProducts.reduce((acc, curr) => {
-        const productsFound =
-          products.length > 0 && products.find(e => e._id === curr.id)
-
-        const pricePerProductType = productsFound
-          ? productsFound.price * curr.quantity
-          : 0
-
-        acc = acc + pricePerProductType
-        return acc
-      }, 0),
-    )
-  }, [savedProducts])
 
   const total = totalProducts + deliveryPrice
 
@@ -73,22 +51,38 @@ export const CardSummary = props => {
       )}`}</CardTotalAmount>
 
       {step === 2 && shipment === 'sendHome' && !unauthorizedDelivery && (
-        <Error>{`Condiciones de envío a domicilio: las compras realizadas antes de las 14:00 horas serán despachadas en el transcurso del día, despues de dicha hora se harán al día siguiente. El tiempo máximo para la entrega es 24 horas.`}</Error>
+        <Error>{`Condiciones de envío a domicilio: ${
+          (deliveryInformation && deliveryInformation.deliveryConditions) || ''
+        }`}</Error>
       )}
 
       {unauthorizedDelivery && (
-        <Error>{`Atención: Agradecemos su comprensión, estamos trabajando para poder llegar a su destino lo antes posible. Prontamente informaremos el Delivery con el cual trabajaremos para llegar a todos los puntos del país.`}</Error>
+        <Error>{`Atención: ${
+          (deliveryInformation &&
+            deliveryInformation.messageForComunasWithoutDelivery) ||
+          ''
+        }`}</Error>
       )}
 
       {step === 1 && (
         <>
-          <Divider />
-
-          {error && (
-            <Error>{`Debe elegir el color de cada unidad seleccionada de ${
-              products.find(e => e._id === error.id).productName
-            } para aceptar la orden`}</Error>
+          {!offerInvoice ? (
+            <LegalDocumentTicket>Documento legal: Boleta</LegalDocumentTicket>
+          ) : (
+            <DivSelect>
+              <Select
+                error={[]}
+                placeholder={'Documento legal que desea'}
+                defaultValue={legalDocumentoToTheOrder}
+                onChange={value => setLegalDocument(value)}
+                arrayOptions={salesDocumentTypes}
+                keyValueName={'_id'}
+                keyMessageName={'spanish'}
+              />
+            </DivSelect>
           )}
+
+          <Divider />
 
           <DivButton>
             <Button
