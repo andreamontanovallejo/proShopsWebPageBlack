@@ -38,7 +38,7 @@ export default class CartPublicPage extends React.Component {
   }
 
   componentDidMount() {
-    if (this.state.savedProducts.length > 0) {
+    if (this.state.savedProducts && this.state.savedProducts.length > 0) {
       this.getProductsToBuy()
     }
   }
@@ -128,6 +128,7 @@ export default class CartPublicPage extends React.Component {
           <StepOne
             acceptOrder={this.acceptOrder}
             legalDocumentoToTheOrder={this.state.legalDocumentoToTheOrder}
+            priceListToUse={this.state.priceListToUse}
             offerInvoice={this.state.deliveryInformation.offerInvoice}
             products={this.state.products}
             salesDocumentTypes={

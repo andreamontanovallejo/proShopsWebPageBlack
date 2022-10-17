@@ -9,16 +9,11 @@ import { ModifyQuantityStored } from '../../products/components/ModifyQuantitySt
 import {
   About,
   CardEachProduct,
-  ColorName,
-  ColorQuantity,
-  ColorsTitle,
   Content,
   ContentProduct,
   DivBottom,
-  DivColors,
   DivModifyQuantity,
   DivPrice,
-  EachColor,
   ImageDiv,
   Packaging,
   PriceBigScreen,
@@ -30,14 +25,14 @@ import {
 
 export const CardProduct = props => {
   const cloudName = `${process.env.REACT_APP_CLOUDINARY_CLOUDNAME}`
-  const { product, savedProducts, setStoraged } = props
+  const { priceListToUse, product, savedProducts, setStoraged } = props
 
   const quantity =
     product && savedProducts.length > 0
       ? savedProducts.find(e => e.id === product._id).quantity
       : 0
 
-  const [isEditing, setIsEditing] = useState(undefined)
+  console.log('product', product)
 
   return (
     <CardEachProduct className={`card`}>
@@ -58,9 +53,14 @@ export const CardProduct = props => {
             <ProductName>{product.productName}</ProductName>
             <Packaging>{`${product.packaging[0].name} de ${product.measure.number} ${product.measure.measureType.name}`}</Packaging>
 
-            <PriceSmallScreen>{`Precio unitario: $${product.price.toLocaleString(
-              'de-DE',
-            )}`}</PriceSmallScreen>
+            <PriceSmallScreen>{`Precio unitario: $${
+              priceListToUse === '62fdccfaf8f153b5f9d77209'
+                ? product.price.toLocaleString('de-DE')
+                : Number(
+                    product.priceLists.find(e => e.listId === priceListToUse)
+                      .value,
+                  ).toLocaleString('de-DE')
+            }`}</PriceSmallScreen>
             <QuantitySmallScreen>
               <Quantity>
                 <ShoppingCartIcon />
@@ -69,9 +69,14 @@ export const CardProduct = props => {
             </QuantitySmallScreen>
           </About>
           <DivPrice>
-            <PriceBigScreen>{`Precio unitario: $${product.price.toLocaleString(
-              'de-DE',
-            )}`}</PriceBigScreen>
+            <PriceBigScreen>{`Precio unitario: $${
+              priceListToUse === '62fdccfaf8f153b5f9d77209'
+                ? product.price.toLocaleString('de-DE')
+                : Number(
+                    product.priceLists.find(e => e.listId === priceListToUse)
+                      .value,
+                  ).toLocaleString('de-DE')
+            }`}</PriceBigScreen>
             <Quantity>
               <ShoppingCartIcon />
               {quantity}

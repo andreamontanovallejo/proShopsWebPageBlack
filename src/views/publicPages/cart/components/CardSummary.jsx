@@ -22,9 +22,7 @@ export const CardSummary = props => {
     error,
     legalDocumentoToTheOrder,
     offerInvoice,
-    products,
     salesDocumentTypes,
-    savedProducts,
     setLegalDocument,
     shipment,
     step,
@@ -38,9 +36,9 @@ export const CardSummary = props => {
     <DivCardSummary className={`card`}>
       <CardTitle>Resumen de la orden</CardTitle>
 
-      <CardTotalProducts>{`Productos: $ ${totalProducts.toLocaleString(
-        'de-DE',
-      )}`}</CardTotalProducts>
+      <CardTotalProducts>{`Productos: $ ${
+        totalProducts !== null ? totalProducts.toLocaleString('de-DE') : 0
+      }`}</CardTotalProducts>
 
       <CardTotalDelivery>{`Envío: $ ${deliveryPrice.toLocaleString(
         'de-DE',
@@ -90,6 +88,7 @@ export const CardSummary = props => {
               onClick={() => !error && acceptOrder()}
               text={'Aceptar orden'}
               textColor={'white'}
+              disabled={totalProducts !== null && totalProducts === 0}
             />
           </DivButton>
         </>

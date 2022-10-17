@@ -14,6 +14,7 @@ export const StepOne = props => {
   const {
     acceptOrder,
     legalDocumentoToTheOrder,
+    priceListToUse,
     offerInvoice,
     products,
     salesDocumentTypes,
@@ -29,36 +30,49 @@ export const StepOne = props => {
   }, [savedProducts])
 
   const [totalProducts, setTotalProducts] = useState(
-    savedProducts.reduce((acc, curr) => {
-      const productsFound =
-        products.length > 0 && products.find(e => e._id === curr.id)
-
-      const pricePerProductType = productsFound
-        ? productsFound.price * curr.quantity
-        : 0
-
-      acc = acc + pricePerProductType
-      return acc
-    }, 0),
-  )
-
-  useEffect(() => {
-    setTotalProducts(
+    savedProducts &&
       savedProducts.reduce((acc, curr) => {
         const productsFound =
           products.length > 0 && products.find(e => e._id === curr.id)
 
         const pricePerProductType = productsFound
-          ? productsFound.price * curr.quantity
+          ? priceListToUse === '62fdccfaf8f153b5f9d77209'
+            ? productsFound.price * curr.quantity
+            : Number(
+                productsFound.priceLists.find(e => e.listId === priceListToUse)
+                  .value,
+              ) * curr.quantity
           : 0
 
         acc = acc + pricePerProductType
         return acc
       }, 0),
+  )
+
+  useEffect(() => {
+    setTotalProducts(
+      savedProducts &&
+        savedProducts.reduce((acc, curr) => {
+          const productsFound =
+            products.length > 0 && products.find(e => e._id === curr.id)
+
+          const pricePerProductType = productsFound
+            ? priceListToUse === '62fdccfaf8f153b5f9d77209'
+              ? productsFound.price * curr.quantity
+              : Number(
+                  productsFound.priceLists.find(
+                    e => e.listId === priceListToUse,
+                  ).value,
+                ) * curr.quantity
+            : 0
+
+          acc = acc + pricePerProductType
+          return acc
+        }, 0),
     )
   }, [savedProducts])
 
-  const error = storaged.find(e => e.error)
+  const error = storaged && storaged.find(e => e.error)
 
   return (
     <>
@@ -88,6 +102,7 @@ export const StepOne = props => {
               .map(productSaved => (
                 <CardProduct
                   key={productSaved.id}
+                  priceListToUse={priceListToUse}
                   product={products.find(e => e._id === productSaved.id)}
                   savedProducts={savedProducts}
                   setSavedProducts={setSavedProducts}
