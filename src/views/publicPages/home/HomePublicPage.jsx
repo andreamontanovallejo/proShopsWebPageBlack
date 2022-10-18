@@ -1,27 +1,24 @@
 import React from 'react'
 import MainImage from './mainImage/MainImage'
 import emptyImage from '../../images/emptyImage.svg'
-//import Slogan from './slogan/Slogan'
 import Categories from './categories/Categories'
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward'
-
 import IsLoading from '../../../helpers/IsLoading'
-
 import { PublicPageHomeServices } from '../../../services/index'
 import {
+  DivBlock,
   DivContainer,
   DivGoUp,
-  Icon,
-  DivIcon,
-  Title,
-  Introduction,
   DivHorario,
+  DivIcon,
   DivImageHorario,
   DivText,
-  Text,
+  Icon,
   ImageHorario,
-  DivBlock,
+  Introduction,
   SpecialText,
+  Text,
+  Title,
 } from './homePublicPageStyles'
 
 export default class HomePublicPage extends React.Component {

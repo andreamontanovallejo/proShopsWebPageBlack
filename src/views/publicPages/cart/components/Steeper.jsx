@@ -14,7 +14,7 @@ export default function Steeper(props) {
     <>
       <DivStepper>
         <StepOne step={props.step}>
-          <div>1</div>
+          <div onClick={() => props.goToStepOne()}>1</div>
           <Divider />
         </StepOne>
         <StepTwo step={props.step}>

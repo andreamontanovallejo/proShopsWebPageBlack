@@ -11,6 +11,9 @@ const PublicPageProductsServicesDefinitions = Object.freeze({
   },
   getProductsToBuy: `${API_PATH}payments/get-products-to-buy`,
   sendPurchaseInformation: `${API_PATH}payments/send-purchase-information`,
+  getThanksForYourPurchase: ({ companyId }) => {
+    return `${API_PATH}payments/get-thanks-for-your-purchase/${companyId}`
+  },
 })
 
 export default PublicPageProductsServicesDefinitions

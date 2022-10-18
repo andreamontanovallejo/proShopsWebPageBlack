@@ -55,7 +55,6 @@ export default class CartPublicPage extends React.Component {
         companyId: process.env.REACT_APP_COMPANYID,
       })
       .then(res => {
-        console.log('res.data', res.data)
         this.setState({
           isLoading: false,
           deliveryInformation: res.data.deliveryInformation,
@@ -81,6 +80,12 @@ export default class CartPublicPage extends React.Component {
   setLegalDocument = value => {
     this.setState({
       legalDocumentoToTheOrder: value,
+    })
+  }
+
+  goToStepOne = () => {
+    this.setState({
+      step: 1,
     })
   }
 
@@ -171,7 +176,11 @@ export default class CartPublicPage extends React.Component {
     return (
       <DivContainer>
         <FirstLine></FirstLine>
-        <Steeper step={this.state.step} />
+        <Steeper
+          step={this.state.step}
+          goToStepOne={this.goToStepOne}
+          acceptOrder={this.acceptOrder}
+        />
         {this.state.isLoading ? divIsLoading : activeStep}
       </DivContainer>
     )

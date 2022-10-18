@@ -32,8 +32,6 @@ export const CardProduct = props => {
       ? savedProducts.find(e => e.id === product._id).quantity
       : 0
 
-  console.log('product', product)
-
   return (
     <CardEachProduct className={`card`}>
       <ImageDiv>

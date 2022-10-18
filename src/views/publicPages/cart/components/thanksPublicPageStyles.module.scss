@@ -1,42 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Parisienne&display=swap');
 
-.divContainer {
-  width: 100%;
-  padding: 3%;
-}
-
 .divTitle {
-  width: 100%;
-  text-align: center;
   font-family: 'Parisienne', cursive !important;
-
-  @media (max-width: 599px) {
-    font-size: 1.8em;
-    padding: 3%;
-    font-weight: bolder;
-  }
-  @media (min-width: 600px) {
-    font-size: 2.5em;
-  }
-}
-
-.divText {
-  width: 100%;
-  text-align: justify;
-  padding: 3%;
-  display: flex;
-  justify-content: space-around;
-}
-
-.text {
-  @media (max-width: 599px) {
-    width: 100%;
-    border: 1px solid #c7c7c7;
-    padding: 3%;
-  }
-  @media (min-width: 600px) {
-    max-width: 800px;
-    border: 1px solid #c7c7c7;
-    padding: 5%;
-  }
 }

@@ -17,7 +17,7 @@ import SignUp from '../../views/publicPages/users/signUp'
 import HomePublicPage from '../../views/publicPages/home/HomePublicPage'
 import ContactPublicPage from '../../views/publicPages/contact/Contact'
 import CartPublicPage from '../../views/publicPages/cart/Cart'
-import ThanksPublicPage from '../../views/publicPages/cart/components/ThanksPublicPage'
+import { ThanksPublicPage } from '../../views/publicPages/cart/components/ThanksPublicPage'
 import ShippingAndReturns from '../../views/publicPages/cart/components/ShippingAndReturns'
 import Products from '../../views/publicPages/products'
 

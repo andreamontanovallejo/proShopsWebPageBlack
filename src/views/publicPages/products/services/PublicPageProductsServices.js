@@ -37,4 +37,12 @@ export default class PublicPageProductsServices extends Services {
       data,
     )
   }
+
+  getThanksForYourPurchase = ({ companyId }) => {
+    return this.get(
+      PublicPageProductsServicesDefinitions.getThanksForYourPurchase({
+        companyId,
+      }),
+    )
+  }
 }

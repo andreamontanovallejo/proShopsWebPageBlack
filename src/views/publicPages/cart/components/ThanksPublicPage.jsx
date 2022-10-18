@@ -1,21 +1,44 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
+import { CartServices } from '../../../../services/index'
 import Styles from './thanksPublicPageStyles.module.scss'
+import { DivContainer, DivTitle, DivText, Text } from './thanksPublicPageStyles'
 
-export default function ThanksPublicPage() {
+const services = new CartServices()
+
+export const ThanksPublicPage = () => {
+  const [thanksMessage, setThanksMessage] = useState(undefined)
+
   useEffect(() => {
-    localStorage.removeItem('shoppingCartLaEscalaGaleria')
+    const thanks = async () => {
+      await setThanksMessage(
+        await services
+          .getThanksForYourPurchase({
+            companyId: process.env.REACT_APP_COMPANYID,
+          })
+          .then(async response => {
+            return response.data
+          })
+          .catch(error => {
+            return 'Agradecemos su compra  y preferencia. Ahora sus productos ya están en proceso de envío'
+          }),
+      )
+    }
+
+    thanks()
+  }, [])
+
+  useEffect(() => {
+    localStorage.removeItem('shoppingCartProshops')
   }, [])
 
   return (
-    <div className={`${Styles.divContainer}`}>
-      <div className={`${Styles.divTitle}`}>Gracias por su compra</div>
-      <div className={`${Styles.divText}`}>
-        <div className={`${Styles.text}`}>
-          Emporio Gorroño le agradece su preferencia por nuestros productos,
-          esperamos que pueda experimentar gratas sensaciones, prontamente más
-          sorpresas.
-        </div>
-      </div>
-    </div>
+    <DivContainer>
+      <DivTitle className={`${Styles.divTitle}`}>
+        Gracias por su compra
+      </DivTitle>
+      <DivText>
+        <Text>{thanksMessage && thanksMessage}</Text>
+      </DivText>
+    </DivContainer>
   )
 }

@@ -82,7 +82,7 @@ export default class NavBar extends React.Component {
               onClose={this.handleClose}
             >
               <MenuItem onClick={this.handleClose}>
-                <Link to={'/'}>Home</Link>
+                <Link to={'/'}>Inicio</Link>
               </MenuItem>
 
               {this.state.sections.map(section => (
@@ -123,7 +123,7 @@ export default class NavBar extends React.Component {
           </RightSpace>
         </FirstLine>
         <DivNav>
-          <Link to={'/'}>Home</Link>
+          <Link to={'/'}>Inicio</Link>
           {this.state.sections.map(section => (
             <Link key={section._id} to={`/products/${section._id}/0/0`}>
               {section.name}

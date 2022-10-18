@@ -22,7 +22,9 @@ export const StepOne = styled.div`
     min-width: 27px !important;
     border-radius: 15px;
     text-align: center;
-    ${(props) =>
+    cursor: pointer;
+
+    ${props =>
       css`
         background-color: ${props.step === 1 ? '#fecc01' : '#555555'};
         border: ${props.step === 1 ? '1px solid #fecc01' : '1px solid gray'};
@@ -46,7 +48,7 @@ export const StepTwo = styled.div`
     min-width: 27px !important;
     border-radius: 15px;
     text-align: center;
-    ${(props) =>
+    ${props =>
       css`
         background-color: ${props.step === 2 ? '#fecc01' : '#555555'};
         border: ${props.step === 2 ? '1px solid #fecc01' : '1px solid gray'};
@@ -70,7 +72,7 @@ export const StepThree = styled.div`
     min-width: 27px !important;
     border-radius: 15px;
     text-align: center;
-    ${(props) =>
+    ${props =>
       css`
         background-color: ${props.step === 3 ? '#fecc01' : '#555555'};
         border: ${props.step === 3 ? '1px solid #fecc01' : '1px solid gray'};

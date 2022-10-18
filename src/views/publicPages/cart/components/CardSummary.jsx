@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { Divider } from '@material-ui/core'
 import Button from '../../../../helpers/Button'
 import Select from '../../../../helpers/Select'
@@ -88,7 +88,7 @@ export const CardSummary = props => {
               onClick={() => !error && acceptOrder()}
               text={'Aceptar orden'}
               textColor={'white'}
-              disabled={totalProducts !== null && totalProducts === 0}
+              disabled={totalProducts === null || totalProducts === 0}
             />
           </DivButton>
         </>

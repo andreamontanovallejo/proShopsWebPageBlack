@@ -1,3 +1,5 @@
+import { getTotalsWithTaxes } from './getTotalsWithTaxes'
+
 export const prepareInfoToSave = ({
   collectorType,
   customerAddress,
@@ -17,10 +19,14 @@ export const prepareInfoToSave = ({
   savedProducts,
   totalProducts,
 }) => {
+  const totalsWithTaxes = getTotalsWithTaxes({
+    legalDocumentoToTheOrder,
+    products,
+    savedProducts,
+  })
   return {
     cashRegisterShift: '634c7baa62bd9d3476b9dad3',
     companyId: process.env.REACT_APP_COMPANYID,
-    // correlative:
     creationDate: new Date(),
     delivery: {
       status: 'pending',
@@ -147,17 +153,10 @@ export const prepareInfoToSave = ({
       operationNumber: undefined,
     },
     totals: {
-      finalPrice: totalProducts,
-      netPrice: 0,
-      taxesAmount: 0,
-      taxesApplied: {
-        isRecoverableWithInvoice: undefined,
-        isRecoverableWithTicket: undefined,
-        taxAccumulateAmount: undefined,
-        taxName: undefined,
-        taxValue: undefined,
-        taxId: undefined,
-      },
+      finalPrice: totalsWithTaxes.finalPrice,
+      netPrice: totalsWithTaxes.netPrice,
+      taxesAmount: totalsWithTaxes.taxesAmmount,
+      taxesApplied: totalsWithTaxes.taxesToApply,
     },
     usedPaymentMethod: [
       {
