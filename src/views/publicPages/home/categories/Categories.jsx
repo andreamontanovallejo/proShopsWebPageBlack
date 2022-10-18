@@ -20,7 +20,7 @@ export default function Categories(props) {
             .filter(e => e.cloudinaryUrl)
             .map(e => (
               <EachCategory key={e._id} className="card">
-                <Link to={`/products/${e.location}/${e.sectionId}/${e._id}/0`}>
+                <Link to={`/products/${e.department.id}/${e._id}/0`}>
                   <DivImage>
                     <Image
                       className={`TechniqueImage`}
