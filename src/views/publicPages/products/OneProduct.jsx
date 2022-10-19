@@ -48,7 +48,6 @@ export default class Menage extends React.Component {
     })
 
     this.services.getOneProduct(this.productId).then(res => {
-      console.log('res.data', res.data)
       this.setState({
         isLoading: false,
         product: res.data,
