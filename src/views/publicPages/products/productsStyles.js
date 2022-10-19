@@ -10,6 +10,7 @@ export const Links = styled.div`
   display: flex;
   width: 100%;
   padding: 3% 1% 0 3%;
+  margin-left: 3%;
 `
 
 export const LinkTo = styled.div`
@@ -182,7 +183,7 @@ export const DivContainerFilters = styled.div`
 export const TitleFilters = styled.div`
   width: 100%;
   text-align: center;
-  color: ${Colors.dullGrayColor};
+  color: ${Colors.green};
   text-transform: uppercase;
   font-size: 1.2em;
   margin-top: 3%;
@@ -418,6 +419,7 @@ export const DivImageAndInfo = styled.div`
 export const DivPicture = styled.div`
   @media (max-width: 599px) {
     div img {
+      max-height: 300px;
     }
   }
 
@@ -429,6 +431,10 @@ export const DivPicture = styled.div`
   @media (min-width: 901px) {
     width: 50%;
     margin: 0 3%;
+
+    div img {
+      height: 400px;
+    }
   }
 `
 
@@ -443,7 +449,7 @@ export const DivInfo = styled.div`
     display: block;
     padding: 0 8% !important;
     width: 100%;
-    margin-top: 10%;
+    margin-top: 5%;
   }
 
   @media (min-width: 600px) and (max-width: 900px) {
@@ -469,10 +475,13 @@ export const InfoNamePhone = styled.div`
   @media (max-width: 599px) {
     text-align: center;
     text-transform: uppercase;
-    font-size: 1.3em;
+    font-size: 1.1em;
     font-weight: bolder;
-    margin-top: 5%;
+    margin-top: 10%;
+    margin-bottom: 6%;
     width: 100%;
+    color: ${Colors.green};
+    padding: 0 6% !important;
   }
 
   @media (min-width: 600px) and (max-width: 900px) {
@@ -490,6 +499,7 @@ export const InfoNameLaptop = styled.div`
   font-weight: bolder;
   margin-top: 5%;
   width: 100%;
+  color: ${Colors.green};
 
   @media (max-width: 599px) {
     display: none;
@@ -502,6 +512,7 @@ export const InfoPackaging = styled.div`
   font-size: 1.1em;
 
   @media (max-width: 599px) {
+    text-align: center;
   }
 
   @media (min-width: 600px) and (max-width: 900px) {
@@ -515,6 +526,7 @@ export const InfoMeasure = styled.div`
   font-size: 1.1em;
 
   @media (max-width: 599px) {
+    text-align: center;
   }
 
   @media (min-width: 600px) and (max-width: 900px) {
@@ -605,7 +617,7 @@ export const DivOtherInfo = styled.div`
   padding: 0 8%;
 
   @media (max-width: 599px) {
-    margin-top: 15%;
+    margin-top: 8%;
   }
 
   @media (min-width: 600px) and (max-width: 900px) {
@@ -618,9 +630,10 @@ export const DivOtherInfo = styled.div`
 export const OtherInfoTitle = styled.div`
   font-size: 1.2em;
   font-weight: bolder;
+  color: ${Colors.green};
 
   @media (max-width: 599px) {
-    margin-top: 8%;
+    margin-top: 0 !important;
   }
 
   @media (min-width: 600px) and (max-width: 900px) {
@@ -631,6 +644,7 @@ export const OtherInfoTitle = styled.div`
 `
 
 export const Description = styled.div`
+  white-space: pre-line;
   @media (max-width: 599px) {
   }
 

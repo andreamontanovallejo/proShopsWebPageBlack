@@ -48,6 +48,7 @@ export default class Menage extends React.Component {
     })
 
     this.services.getOneProduct(this.productId).then(res => {
+      console.log('res.data', res.data)
       this.setState({
         isLoading: false,
         product: res.data,
@@ -82,7 +83,7 @@ export default class Menage extends React.Component {
                   <LinkTo
                     onClick={() =>
                       this.props.pushTo(
-                        `/products/${this.state.product.section.location}/${this.state.product.section._id}/0/0`,
+                        `/products/${this.state.product.section._id}/0/0`,
                       )
                     }
                   >
@@ -96,7 +97,7 @@ export default class Menage extends React.Component {
                         <LinkTo
                           onClick={() =>
                             this.props.pushTo(
-                              `/products/${this.state.product.section.location}/${this.state.product.section._id}/${category._id}/0`,
+                              `/products/${this.state.product.section._id}/${category._id}/0`,
                             )
                           }
                         >
@@ -119,17 +120,9 @@ export default class Menage extends React.Component {
                         {this.state.product.productName}
                       </InfoNameLaptop>
                       <InfoPackaging>
-                        {this.state.product.packaging.name}
+                        {this.state.product.packaging[0].name}
                       </InfoPackaging>
                       <InfoMeasure>{`${this.state.product.measure.number} ${this.state.product.measure.measureType.name}`}</InfoMeasure>
-                      {this.state.product.colors.length > 0 && (
-                        <InfoColors>
-                          <ColorsTitle>Colores disponibes:</ColorsTitle>
-                          {this.state.product.colors.map(color => (
-                            <Color>{color.name}</Color>
-                          ))}
-                        </InfoColors>
-                      )}
                       <InfoPrice>
                         {`$ ${this.state.product.price.toLocaleString(
                           'de-DE',
@@ -144,7 +137,8 @@ export default class Menage extends React.Component {
                 </DivImageAndInfo>
                 <DivOtherInfo>
                   {this.state.product.aditionalDescription &&
-                    this.state.product.aditionalDescription !== null && (
+                    this.state.product.aditionalDescription !== null &&
+                    this.state.product.aditionalDescription.trim() !== '' && (
                       <>
                         <OtherInfoTitle>Descripción:</OtherInfoTitle>
                         <Description>
@@ -171,15 +165,6 @@ export default class Menage extends React.Component {
                         <Description>
                           {`${this.state.product.diners} personas`}
                         </Description>
-                      </>
-                    )}
-                  {this.state.product.materialities &&
-                    this.state.product.materialities.length > 0 && (
-                      <>
-                        <OtherInfoTitle>Materialidades:</OtherInfoTitle>
-                        {this.state.product.materialities.map(materiality => (
-                          <Description>{materiality.name}</Description>
-                        ))}
                       </>
                     )}
                   {this.state.product.specialties &&

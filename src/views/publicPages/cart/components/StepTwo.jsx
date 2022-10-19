@@ -174,7 +174,7 @@ export const StepTwo = props => {
                 }}
                 shipment={shipment}
               >
-                Buscar en tienda
+                Retirar en tienda
               </OptionSearchInStore>
             )}
 

@@ -20,6 +20,7 @@ import CartPublicPage from '../../views/publicPages/cart/Cart'
 import { ThanksPublicPage } from '../../views/publicPages/cart/components/ThanksPublicPage'
 import ShippingAndReturns from '../../views/publicPages/cart/components/ShippingAndReturns'
 import Products from '../../views/publicPages/products'
+import OneProduct from '../../views/publicPages/products/OneProduct'
 
 export default class Dashboard extends Component {
   render() {
@@ -69,6 +70,11 @@ export default class Dashboard extends Component {
           isPrivate={false}
           path={GetPublicPageRoute(PublicPageRoute.products)}
           component={Products}
+        />
+        <CustomRoute
+          isPrivate={false}
+          path={GetPublicPageRoute(PublicPageRoute.oneProduct)}
+          component={OneProduct}
         />
         {/* <CustomRoute
           isPrivate={false}
