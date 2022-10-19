@@ -10,7 +10,7 @@ export const DivGoUp = styled.div`
   position: fixed;
   width: 28px;
   height: 28px;
-  background-color: #fecc01;
+  background-color: ${Colors.yellow};
   border: 1px solid gray;
   border-radius: 15px;
   right: 1%;

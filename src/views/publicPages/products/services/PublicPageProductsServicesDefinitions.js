@@ -6,8 +6,8 @@ const PublicPageProductsServicesDefinitions = Object.freeze({
   },
   setLikes: `${API_PATH}products-by-section/set-likes`,
   setLike: `${API_PATH}products-by-section/set-like`,
-  getOneProduct: productId => {
-    return `${API_PATH}products-by-section/get-one-product/${productId}`
+  getOneProduct: ({ companyId, productId }) => {
+    return `${API_PATH}products-by-section/get-one-product/${companyId}/${productId}`
   },
   getProductsToBuy: `${API_PATH}payments/get-products-to-buy`,
   sendPurchaseInformation: `${API_PATH}payments/send-purchase-information`,

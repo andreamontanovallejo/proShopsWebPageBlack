@@ -10,14 +10,11 @@ import {
   DivImageAndInfo,
   DivInfo,
   DivPicture,
-  InfoColors,
   InfoMeasure,
   InfoNamePhone,
   InfoNameLaptop,
   InfoPackaging,
   InfoPrice,
-  ColorsTitle,
-  Color,
   DivCentered,
   DivOtherInfo,
   Description,
@@ -34,6 +31,7 @@ export default class Menage extends React.Component {
     this.services = new PublicPageProductsServices()
     this.state = {
       isLoading: false,
+      priceListToUse: undefined,
       product: undefined,
     }
   }
@@ -47,12 +45,18 @@ export default class Menage extends React.Component {
       isLoading: true,
     })
 
-    this.services.getOneProduct(this.productId).then(res => {
-      this.setState({
-        isLoading: false,
-        product: res.data,
+    this.services
+      .getOneProduct({
+        companyId: process.env.REACT_APP_COMPANYID,
+        productId: this.productId,
       })
-    })
+      .then(res => {
+        this.setState({
+          isLoading: false,
+          priceListToUse: res.data.priceListToUse,
+          product: res.data.product,
+        })
+      })
   }
 
   setLike = (productId, likeOrDislike) => {
@@ -123,9 +127,18 @@ export default class Menage extends React.Component {
                       </InfoPackaging>
                       <InfoMeasure>{`${this.state.product.measure.number} ${this.state.product.measure.measureType.name}`}</InfoMeasure>
                       <InfoPrice>
-                        {`$ ${this.state.product.price.toLocaleString(
-                          'de-DE',
-                        )}`}
+                        {`$ ${
+                          this.state.priceListToUse ===
+                          '62fdccfaf8f153b5f9d77209'
+                            ? this.state.product.price.toLocaleString('de-DE')
+                            : Number(
+                                Number(
+                                  this.state.product.priceLists.find(
+                                    e => e.listId === this.state.priceListToUse,
+                                  ).value,
+                                ).toFixed(),
+                              ).toLocaleString('de-DE')
+                        }`}
                       </InfoPrice>
 
                       <DivAddProductButton>

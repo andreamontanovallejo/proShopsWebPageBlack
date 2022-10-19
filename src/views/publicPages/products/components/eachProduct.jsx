@@ -48,6 +48,7 @@ export const Product = props => {
               ).salePer
             : product.measure.measureType.name
         }`}</Measure>
+
         <Price>{`$ ${
           props.priceListToUse === '62fdccfaf8f153b5f9d77209'
             ? Number(Number(product.price).toFixed()).toLocaleString('de-DE')

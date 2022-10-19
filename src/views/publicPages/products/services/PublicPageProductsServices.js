@@ -18,9 +18,12 @@ export default class PublicPageProductsServices extends Services {
     return this.put(PublicPageProductsServicesDefinitions.setLike, data)
   }
 
-  getOneProduct = productId => {
+  getOneProduct = ({ companyId, productId }) => {
     return this.get(
-      PublicPageProductsServicesDefinitions.getOneProduct(productId),
+      PublicPageProductsServicesDefinitions.getOneProduct({
+        companyId,
+        productId,
+      }),
     )
   }
 

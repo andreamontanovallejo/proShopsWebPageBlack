@@ -83,11 +83,11 @@ export default class Footer extends React.Component {
           <DivTitle>Menú</DivTitle>
           <DivMenu>
             <DivEachLink>
-              <Link to={`${process.env.FRONT_URL}/contact`}>Contacto</Link>
+              <Link to={`/contact`}>Contacto</Link>
             </DivEachLink>
 
             <DivEachLink>
-              <Link to={`${process.env.FRONT_URL}/cart`}>Carrito</Link>
+              <Link to={`/cart`}>Carrito</Link>
             </DivEachLink>
           </DivMenu>
           <Divider />

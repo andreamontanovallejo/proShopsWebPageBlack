@@ -707,3 +707,20 @@ export const NotAvailable = styled.div`
   @media (min-width: 901px) {
   }
 `
+
+export const DivGoUp = styled.div`
+  position: fixed;
+  width: 28px;
+  height: 28px;
+  background-color: ${Colors.yellow};
+  border: 1px solid gray;
+  border-radius: 15px;
+  right: 1%;
+  bottom: 5%;
+  display: flex;
+  align-items: center;
+
+  svg {
+    margin: auto;
+  }
+`

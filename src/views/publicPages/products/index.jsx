@@ -1,16 +1,18 @@
 import React from 'react'
+import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward'
 import IsLoading from '../../../helpers/IsLoading'
 import { PublicPageProductsServices } from '../../../services/index'
 import { Filters } from './components/filters'
 import { Product } from './components/eachProduct'
+import { filterProductsBy } from './utils/filterProductsBy'
+import { filterProductsBySection } from './utils/filterProductsBySection'
 import {
   DivContainer,
+  DivGoUp,
   DivListOfProducts,
   Links,
   LinkTo,
 } from './productsStyles'
-import { filterProductsBy } from './utils/filterProductsBy'
-import { filterProductsBySection } from './utils/filterProductsBySection'
 
 export default class Products extends React.Component {
   constructor(props) {
@@ -166,6 +168,8 @@ export default class Products extends React.Component {
           IsLoading()
         ) : (
           <>
+            <a name="up"></a>
+
             <Links>
               <LinkTo onClick={() => this.showAllProducts()}>
                 Todos los productos /
@@ -194,6 +198,12 @@ export default class Products extends React.Component {
                   />
                 ))}
             </DivListOfProducts>
+
+            <a href="#up">
+              <DivGoUp>
+                <ArrowUpwardIcon />
+              </DivGoUp>
+            </a>
           </>
         )}
       </DivContainer>
