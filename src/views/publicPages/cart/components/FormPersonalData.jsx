@@ -171,20 +171,20 @@ export default function FormPersonalData(props) {
         </>
       )}
 
-      {props.customerRegion &&
-        comunaOptions.length > 0 &&
-        props.customerComuna && (
-          <DivInput>
-            <InputMultiline
-              type={'text'}
-              name={'customerNotes'}
-              placeholder={'Notas adicionales (opcional):'}
-              error={[]}
-              onChange={event => props.setCustomerNotes(event.target.value)}
-              defaultValue={props.customerNotes}
-            />
-          </DivInput>
-        )}
+      <DivInput>
+        <InputMultiline
+          type={'text'}
+          name={'customerNotes'}
+          placeholder={
+            props.shipment !== 'searchInStore'
+              ? 'Agregar nota para el despacho (opcional):'
+              : 'Agregar nota para el retiro (opcional)'
+          }
+          error={[]}
+          onChange={event => props.setCustomerNotes(event.target.value)}
+          defaultValue={props.customerNotes}
+        />
+      </DivInput>
 
       {props.customerRegion && comunaOptions.length === 0 && (
         <TextError>Actualmente no tenemos despacho para esta región.</TextError>

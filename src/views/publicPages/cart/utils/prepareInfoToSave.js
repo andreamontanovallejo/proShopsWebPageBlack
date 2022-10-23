@@ -147,7 +147,7 @@ export const prepareInfoToSave = ({
       }
     }),
     saleDocumentType: legalDocumentoToTheOrder,
-    saleNotes: customerNotes,
+    saleNotes: '',
     sii: {
       operationAmount: undefined,
       operationNumber: undefined,

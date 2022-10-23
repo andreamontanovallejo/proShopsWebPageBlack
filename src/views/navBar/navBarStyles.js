@@ -48,7 +48,11 @@ export const DivLogo = styled.div`
     margin: auto;
     display: flex;
     align-items: center;
-    padding: 1%;
+    padding: 0;
+  }
+
+  a {
+    padding: 0;
   }
 `
 export const RightSpace = styled.div`
