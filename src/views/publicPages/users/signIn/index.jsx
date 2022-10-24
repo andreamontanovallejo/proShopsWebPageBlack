@@ -14,7 +14,6 @@ import {
   DivForm,
   ErrorText,
   LoginText,
-  Logo,
   SignUpTextLink,
   Title,
 } from './signInStyles'

@@ -1,5 +1,4 @@
-import styled, { css } from 'styled-components'
-import { Colors } from '../../../../assets/styles/variables'
+import styled from 'styled-components'
 
 export const DivStoredProduct = styled.div`
   display: block;

@@ -16,9 +16,7 @@ import {
   DivLogInLink,
   DivNote,
   Errors,
-  Image,
   LoginText,
-  Logo,
   Text,
   Title,
 } from './signUpStyles'

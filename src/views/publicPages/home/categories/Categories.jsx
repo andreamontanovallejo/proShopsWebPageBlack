@@ -12,21 +12,31 @@ import {
 
 export default function Categories(props) {
   const cloudName = `${process.env.REACT_APP_CLOUDINARY_CLOUDNAME}`
+
   return (
     <DivContainer>
       <DivCategories>
         {props.categories &&
           props.categories
-            .filter(e => e.cloudinaryUrl)
-            .map(e => (
-              <EachCategory key={e._id} className="card">
-                <Link to={`/products/${e.department.id}/${e._id}/0`}>
+            .filter(eachcategory => eachcategory.cloudinaryUrl)
+            .sort((a, b) =>
+              a.menuOrder > b.menuOrder
+                ? 1
+                : a.menuOrder < b.menuOrder
+                ? -1
+                : 0,
+            )
+            .map(eachcategory => (
+              <EachCategory key={eachcategory._id} className="card">
+                <Link
+                  to={`/products/${eachcategory.department.id}/${eachcategory._id}/0`}
+                >
                   <DivImage>
                     <Image
                       className={`TechniqueImage`}
                       cloudName={cloudName}
                       id={'backgroundPaint1'}
-                      publicId={e.cloudinaryUrl}
+                      publicId={eachcategory.cloudinaryUrl}
                       alt="categoría producto gourmet"
                       quality="auto"
                       loading="lazy"
@@ -35,7 +45,7 @@ export default function Categories(props) {
                     </Image>
                   </DivImage>
 
-                  <CategoryName>{e.name}</CategoryName>
+                  <CategoryName>{eachcategory.name}</CategoryName>
                 </Link>
               </EachCategory>
             ))}

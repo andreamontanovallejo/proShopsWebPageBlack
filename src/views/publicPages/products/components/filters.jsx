@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import {
   DivContainerFilters,
   DivSubcategories,
@@ -31,7 +31,7 @@ export const Filters = props => {
             name: eachCategory.name,
             _id: eachCategory._id,
             subcategories: eachProduct.subCategoriesSelected.filter(
-              e => e.categoryId === eachCategory._id,
+              e => e.categoryId === eachCategory._id && e.isActive === true,
             ),
           }
 

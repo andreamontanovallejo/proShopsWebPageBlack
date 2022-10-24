@@ -118,35 +118,31 @@ export default class HomePublicPage extends React.Component {
                 <>
                   <Title>Horarios de atención</Title>
                   {this.state.branchStores.length === 1 ? (
-                    <DivHorario>
-                      {this.state.branchStores.map((store, index) => (
-                        <>
-                          <DivText key={store._id}>
-                            <DivBlock>
-                              <Text>{`Dirección : ${store.address}`}</Text>
-                              <Text>{store.comunaOrNeighborhood}</Text>
-                              {store.schedules.length > 0 &&
-                                store.schedules.map(schedule => (
-                                  <Text key={schedule._id}>
-                                    {schedule.line}
-                                  </Text>
-                                ))}
-                            </DivBlock>
+                    this.state.branchStores.map((store, index) => (
+                      <DivHorario key={store._id}>
+                        <DivText>
+                          <DivBlock>
+                            <Text>{`Dirección : ${store.address}`}</Text>
+                            <Text>{store.comunaOrNeighborhood}</Text>
+                            {store.schedules.length > 0 &&
+                              store.schedules.map(schedule => (
+                                <Text key={schedule._id}>{schedule.line}</Text>
+                              ))}
+                          </DivBlock>
 
-                            <SpecialText>{this.state.welcomeText}</SpecialText>
-                          </DivText>
-                          <DivImageHorario>
-                            <ImageHorario
-                              src={
-                                (this.state.imageSchedule &&
-                                  this.state.imageSchedule.cloudinaryUrl) ||
-                                emptyImage
-                              }
-                            ></ImageHorario>
-                          </DivImageHorario>
-                        </>
-                      ))}
-                    </DivHorario>
+                          <SpecialText>{this.state.welcomeText}</SpecialText>
+                        </DivText>
+                        <DivImageHorario>
+                          <ImageHorario
+                            src={
+                              (this.state.imageSchedule &&
+                                this.state.imageSchedule.cloudinaryUrl) ||
+                              emptyImage
+                            }
+                          ></ImageHorario>
+                        </DivImageHorario>
+                      </DivHorario>
+                    ))
                   ) : (
                     <DivHorario multipleStores={true}>
                       <DivText multipleStores={true}>
