@@ -6,7 +6,7 @@
     "node": "14.17.0",
     "npm": "6.x"
   },
-  "homepage": "https://emporiogurme.proshops.cl/",
+  "homepage": "https://black.proshops.cl/",
   "dependencies": {
     "@emotion/react": "^11.6.0",
     "@emotion/styled": "^11.6.0",

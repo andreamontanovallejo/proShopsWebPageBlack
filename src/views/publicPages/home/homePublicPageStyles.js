@@ -73,7 +73,7 @@ export const DivHorario = styled.div`
   }
   @media (min-width: 600px) {
     align-items: center;
-    padding: 1% 5%;
+    padding: 3% 5%;
 
     ${props =>
       css`

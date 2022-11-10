@@ -78,7 +78,6 @@ export default class Products extends React.Component {
         companyId: process.env.REACT_APP_COMPANYID,
       })
       .then(res => {
-        console.log('reassss', res.data)
         const productBySection = filterProductsBySection({
           products: res.data.allProducts,
           sectionId: this.props.match.params.id,

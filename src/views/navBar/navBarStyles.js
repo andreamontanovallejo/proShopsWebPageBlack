@@ -17,7 +17,7 @@ export const FirstLine = styled.div`
 `
 
 export const DivMenuSmallScreen = styled.div`
-  @media (min-width: 600px) {
+  @media (min-width: 820px) {
     display: none !important;
   }
 
@@ -35,7 +35,7 @@ export const DivMenuSmallScreen = styled.div`
 `
 
 export const DivLogo = styled.div`
-  @media (max-width: 599px) {
+  @media (max-width: 820px) {
     width: 70%;
   }
 
@@ -185,11 +185,11 @@ export const DivCar = styled.div`
 `
 
 export const DivNav = styled.div`
-  @media (max-width: 599px) {
+  @media (max-width: 819px) {
     display: none !important;
   }
 
-  @media (min-width: 600px) and (max-width: 1205px) {
+  @media (min-width: 820px) and (max-width: 1205px) {
     height: 50px !important;
     align-items: center;
   }

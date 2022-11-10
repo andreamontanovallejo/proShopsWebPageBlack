@@ -123,13 +123,22 @@ export default class NavBar extends React.Component {
           </RightSpace>
         </FirstLine>
         <DivNav>
-          <Link to={'/'}>Inicio</Link>
-          {this.state.sections.map(section => (
+          {this.state.sections.slice(0, 5).map(section => (
             <Link key={section._id} to={`/products/${section._id}/0/0`}>
               {section.name}
             </Link>
           ))}
           <Link to={'/contact'}>Contacto</Link>
+          {this.state.sections.length > 5 && (
+            <IconButton
+              aria-label="more"
+              aria-controls="long-menu"
+              aria-haspopup="true"
+              onClick={this.handleClick}
+            >
+              <MoreVertIcon />
+            </IconButton>
+          )}
         </DivNav>
       </DivContainer>
     )
