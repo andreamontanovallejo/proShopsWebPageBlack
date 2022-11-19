@@ -35,7 +35,7 @@ export const Filters = props => {
             ),
           }
 
-          const exist = box.find(e => e._id === newCategory._id)
+          let exist = box.find(e => e._id === newCategory._id)
           !exist && box.push(newCategory)
 
           const otherCategories =
@@ -43,14 +43,16 @@ export const Filters = props => {
 
           exist &&
             eachProduct.subCategoriesSelected.length > 0 &&
-            eachProduct.subCategoriesSelected.map(e => {
+            eachProduct.subCategoriesSelected.map(eachSubcategory => {
               const finded = exist.subcategories.find(
-                thissubcat => thissubcat.categoryId === e.categoryId,
+                thissubcat => thissubcat._id === eachSubcategory._id,
               )
 
-              !finded && exist.subcategories.push(e)
+              if (!finded && eachSubcategory.isActive === true) {
+                exist.subcategories = [...exist.subcategories, eachSubcategory]
 
-              box = [...otherCategories, exist]
+                box = [...otherCategories, exist]
+              }
             })
         })
 
