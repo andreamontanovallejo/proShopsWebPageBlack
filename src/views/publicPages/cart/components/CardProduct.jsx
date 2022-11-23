@@ -4,6 +4,7 @@ import DeleteIcon from '@material-ui/icons/Delete'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
 import { Image, Transformation } from 'cloudinary-react'
 import { ModifyQuantityStored } from '../../products/components/ModifyQuantityStored'
+import emptyImage from '../../../images/emptyProductImage.svg'
 import {
   About,
   CardEachProduct,
@@ -13,6 +14,7 @@ import {
   DivModifyQuantity,
   DivPrice,
   ImageDiv,
+  ImageEmpty,
   Packaging,
   PriceBigScreen,
   PriceSmallScreen,
@@ -33,15 +35,19 @@ export const CardProduct = props => {
   return (
     <CardEachProduct className={`card`}>
       <ImageDiv>
-        <Image
-          alt="producto Proshops"
-          cloudName={cloudName}
-          loading="lazy"
-          publicId={product.imgSaved[0].url}
-          quality="auto"
-        >
-          <Transformation fetchFormat="auto" quality="auto" />
-        </Image>
+        {product.imgSaved.length > 0 ? (
+          <Image
+            alt="producto Proshops"
+            cloudName={cloudName}
+            loading="lazy"
+            publicId={product.imgSaved[0].url}
+            quality="auto"
+          >
+            <Transformation fetchFormat="auto" quality="auto" />
+          </Image>
+        ) : (
+          <ImageEmpty src={emptyImage}></ImageEmpty>
+        )}
       </ImageDiv>
       <Content>
         <ContentProduct>

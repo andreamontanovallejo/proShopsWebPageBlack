@@ -215,3 +215,17 @@ export const ColorQuantity = styled.div`
   @media (min-width: 600px) {
   }
 `
+
+export const ImageEmpty = styled.img`
+  width: 70%;
+  margin: auto;
+
+  @media (max-width: 599px) {
+  }
+
+  @media (min-width: 600px) and (max-width: 1024px) {
+  }
+
+  @media (min-width: 1025px) {
+  }
+`

@@ -331,7 +331,7 @@ export const DivSearchInput = styled.div`
 export const DivLikesAndMorePhotos = styled.div`
   width: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   padding: 0 4%;
 
   @media (max-width: 599px) {
@@ -722,5 +722,19 @@ export const DivGoUp = styled.div`
 
   svg {
     margin: auto;
+  }
+`
+
+export const ImageEmpty = styled.img`
+  width: 90%;
+  margin: auto;
+
+  @media (max-width: 599px) {
+  }
+
+  @media (min-width: 600px) and (max-width: 1024px) {
+  }
+
+  @media (min-width: 1025px) {
   }
 `

@@ -2,12 +2,14 @@ import React from 'react'
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos'
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos'
 import { Image, Transformation } from 'cloudinary-react'
+import emptyImage from '../../../images/emptyProductImage.svg'
 import { useState } from 'react'
 import {
   DivImage,
   DivLikesAndMorePhotos,
   DivNextPicture,
   DivPreviousPicture,
+  ImageEmpty,
 } from '../productsStyles'
 import LikesAndDislikes from './likesAndDislikes'
 
@@ -23,17 +25,21 @@ export const ProductImageAndLikes = props => {
       <DivImage
         onClick={() => props.pushTo(`/products/product/${product._id}`)}
       >
-        <Image
-          className={`productImage`}
-          cloudName={cloudName}
-          id={product._id}
-          publicId={product.imgSaved[pictureIndex.index].url}
-          alt="Producto proshops"
-          quality="auto"
-          loading="lazy"
-        >
-          <Transformation fetchFormat="auto" quality="auto" />
-        </Image>
+        {product.imgSaved.length > 0 ? (
+          <Image
+            className={`productImage`}
+            cloudName={cloudName}
+            id={product._id}
+            publicId={product.imgSaved[pictureIndex.index].url}
+            alt="Producto proshops"
+            quality="auto"
+            loading="lazy"
+          >
+            <Transformation fetchFormat="auto" quality="auto" />
+          </Image>
+        ) : (
+          <ImageEmpty src={emptyImage} alt="Producto proshops"></ImageEmpty>
+        )}
       </DivImage>
       <DivLikesAndMorePhotos>
         {product.imgSaved.length > 0 && (

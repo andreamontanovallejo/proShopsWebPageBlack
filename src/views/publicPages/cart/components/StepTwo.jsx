@@ -171,6 +171,9 @@ export const StepTwo = props => {
                 onClick={() => {
                   setShipment('searchInStore')
                   setCollectorType('62f9278cf8f153b5f9d77200')
+                  setDeliveryPrice(0)
+                  setCustomerComuna(undefined)
+                  setCustomerRegion(undefined)
                 }}
                 shipment={shipment}
               >
@@ -181,7 +184,12 @@ export const StepTwo = props => {
             {(deliveryInformation.companyHaveOwnDeliverySystem ||
               deliveryInformation.companyHaveThirdPartyShipment) && (
               <OptionSendHome
-                onClick={() => setShipment('sendHome')}
+                onClick={() => {
+                  setShipment('sendHome')
+                  setDeliveryPrice(0)
+                  setCustomerComuna(undefined)
+                  setCustomerRegion(undefined)
+                }}
                 shipment={shipment}
               >
                 Enviar a domicilio
