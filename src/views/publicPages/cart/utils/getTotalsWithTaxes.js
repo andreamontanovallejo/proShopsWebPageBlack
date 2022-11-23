@@ -1,11 +1,20 @@
 export const getTotalsWithTaxes = ({
   legalDocumentoToTheOrder,
+  priceListToUse,
   products,
   savedProducts,
 }) => {
   //62f02e8a59f813792c5cdfcb boleta
+  const useOriginalPrice = priceListToUse === '62fdccfaf8f153b5f9d77209'
+
   return products.reduce(
     (acc, product) => {
+      const productPrice = useOriginalPrice
+        ? product.price
+        : Number(
+            product.priceLists.find(e => e.listId === priceListToUse).value,
+          )
+
       const quantity = savedProducts.find(e => e.id === product._id).quantity
       let taxSummationPerProduct = 0 // entrega el % total, ej: iva 19% + ila 30% respuesta= 49
 
@@ -31,14 +40,14 @@ export const getTotalsWithTaxes = ({
           : tax.isRecoverableWithInvoice,
       )
 
-      let netPerProduct = (100 * product.price) / (100 + taxSummationPerProduct)
+      let netPerProduct = (100 * productPrice) / (100 + taxSummationPerProduct)
 
       let netPriceAmount = acc.netPrice + quantity * netPerProduct
 
       let totalTaxesAmmount =
-        acc.taxesAmmount + quantity * (product.price - netPerProduct)
+        acc.taxesAmmount + quantity * (productPrice - netPerProduct)
 
-      let totalAccumelatedPerProduct = acc.finalPrice + quantity * product.price
+      let totalAccumelatedPerProduct = acc.finalPrice + quantity * productPrice
 
       taxes.length > 0
         ? taxes.map(eachTax => {

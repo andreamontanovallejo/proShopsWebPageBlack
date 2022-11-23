@@ -21,6 +21,7 @@ export const prepareInfoToSave = ({
 }) => {
   const totalsWithTaxes = getTotalsWithTaxes({
     legalDocumentoToTheOrder,
+    priceListToUse,
     products,
     savedProducts,
   })
@@ -91,7 +92,8 @@ export const prepareInfoToSave = ({
       const productFound = products.find(e => e._id === eachProduct.id)
 
       return {
-        imgUrl: productFound.imgSaved[0].url,
+        imgUrl:
+          productFound.imgSaved.length > 0 ? productFound.imgSaved[0].url : '',
         barCode: productFound.barCode,
         categories:
           productFound.categories.length > 0

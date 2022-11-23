@@ -19,7 +19,7 @@ export const ThanksPublicPage = () => {
             return response.data
           })
           .catch(error => {
-            return 'Agradecemos su compra  y preferencia. Ahora sus productos ya están en proceso de envío'
+            return 'Agradecemos su compra  y preferencia. Ahora sus productos ya están en proceso de envío. Se ha enviado el comprobante de pago y detalle de sus productos al correo electrónico ingresado.'
           }),
       )
     }
@@ -37,7 +37,9 @@ export const ThanksPublicPage = () => {
         Gracias por su compra
       </DivTitle>
       <DivText>
-        <Text>{thanksMessage && thanksMessage}</Text>
+        <Text>{`${
+          thanksMessage && thanksMessage
+        } Se ha enviado el comprobante de pago y detalle de sus productos al correo electrónico ingresado.`}</Text>
       </DivText>
     </DivContainer>
   )

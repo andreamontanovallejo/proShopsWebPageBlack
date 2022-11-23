@@ -5,6 +5,7 @@ import { DivContainer, DivContent, FirstLine } from './cartStyles'
 import Steeper from './components/Steeper'
 import { StepOne } from './components/StepOne'
 import { StepTwo } from './components/StepTwo'
+import { RedAlertPopUp } from '../../../helpers/RedAlertPopUp'
 
 export default class CartPublicPage extends React.Component {
   constructor(props) {
@@ -26,6 +27,7 @@ export default class CartPublicPage extends React.Component {
         offerInvoice: undefined,
         salesDocumentTypes: [],
       },
+      demonstrationSitePayment: undefined,
       isLoading: false,
       priceListToUse: undefined,
       priceListsToUse: [],
@@ -101,11 +103,20 @@ export default class CartPublicPage extends React.Component {
     })
 
     this.services.sendPurchaseInformation(newSale).then(res => {
-      this.setState({
-        urlPaymentMercadoPago: res.data,
-        isLoading: false,
-      })
-      window.location.replace(`${res.data}`)
+      if (res.data.demonstrationSitePayment) {
+        this.setState({
+          demonstrationSitePayment: res.data.demonstrationSitePayment,
+          isLoading: false,
+          step: 3,
+        })
+      } else {
+        this.setState({
+          demonstrationSitePayment: undefined,
+          isLoading: false,
+          urlPaymentMercadoPago: res.data,
+        })
+        window.location.replace(`${res.data}`)
+      }
     })
   }
 
@@ -166,7 +177,11 @@ export default class CartPublicPage extends React.Component {
 
         break
       case 3:
-        activeStep = <DivContent></DivContent>
+        activeStep = (
+          <DivContent>
+            <RedAlertPopUp text={this.state.demonstrationSitePayment} />
+          </DivContent>
+        )
 
         break
       default:

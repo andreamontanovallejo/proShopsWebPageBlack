@@ -36,7 +36,12 @@ export const StepTwo = props => {
         products.length > 0 && products.find(e => e._id === curr.id)
 
       const pricePerProductType = productsFound
-        ? productsFound.price * curr.quantity
+        ? priceListToUse === '62fdccfaf8f153b5f9d77209'
+          ? productsFound.price * curr.quantity
+          : Number(
+              productsFound.priceLists.find(e => e.listId === priceListToUse)
+                .value,
+            ) * curr.quantity
         : 0
 
       acc = acc + pricePerProductType
@@ -51,7 +56,12 @@ export const StepTwo = props => {
           products.length > 0 && products.find(e => e._id === curr.id)
 
         const pricePerProductType = productsFound
-          ? productsFound.price * curr.quantity
+          ? priceListToUse === '62fdccfaf8f153b5f9d77209'
+            ? productsFound.price * curr.quantity
+            : Number(
+                productsFound.priceLists.find(e => e.listId === priceListToUse)
+                  .value,
+              ) * curr.quantity
           : 0
 
         acc = acc + pricePerProductType

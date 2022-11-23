@@ -26,6 +26,7 @@ export const CardSummarySmallScreen = styled.div`
 
 export const FirstLine = styled.div`
   width: 100%;
+  padding: 2%;
 
   @media (max-width: 599px) {
   }
